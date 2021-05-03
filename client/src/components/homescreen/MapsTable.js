@@ -248,8 +248,8 @@ const MapsTable = (props) => {
 					</ul>
 					<ul className = 'routes'>
 						{props.route.map((route) => (
-							<WButton className='route' onClick = {() => {history.push(route)}}>
-								{route}
+							<WButton className='route' onClick = {() => {history.push(route[0])}}>
+								{route[1]}
 							</WButton>
 						))}
 

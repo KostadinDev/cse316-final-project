@@ -54,7 +54,7 @@ const App = () => {
 				console.log(maps[i])
 				for (let j =0; j< maps[i].regions.length; j++){
 					if (maps[i].regions[j].id == region_id){
-						maps[i].regions.splice(j, 1);
+						maps.regions.splice(j, 1);
 				break;
 					}
 				}
@@ -81,7 +81,7 @@ const App = () => {
 				<Redirect exact from="/" to={ {pathname: "/welcome-screen"} } />
 				{
 					maps.map(map => <Route path={"/maps/" + map.id}  render={() => 
-						<MapsTable createRegion = {createRegion} deleteRegion = {deleteRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {['/welcome-screen/', '/maps/', '/maps/' + map.id]}/>
+						<MapsTable createRegion = {createRegion} deleteRegion = {deleteRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {[['/welcome-screen/', 'home'], ['/maps/', 'maps'], ['/maps/' + map.id, map.name]]}/>
 					}  />)
 				}
 				<Route 
