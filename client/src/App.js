@@ -7,15 +7,25 @@ import * as queries 	from './cache/queries';
 import { jsTPS } 		from './utils/jsTPS';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import MapsScreen from './components/main/MapsScreen';
-
+import { GET_DB_TODOS } 				from './cache/queries';
 
 
 
 const App = () => {
+	const { loading_todos, error_todos, data_todos, refetch_todos } = useQuery(GET_DB_TODOS);
+
+	const [todolists, updateTodolists] = useState([]);
+
+	
+	let updateTodos = (todos) =>{
+		updateTodolists(todos)
+		console.log(todos, 'here');
+		console.log(todolists)
+	}
 
 
 	const [maps, setMaps] = useState([])
-
+	let SidebarData = [];
 
 
 	let user = null;
@@ -29,6 +39,9 @@ const App = () => {
 		let { getCurrentUser } = data;
 		if(getCurrentUser !== null) { user = getCurrentUser; }
     }	
+
+
+
 	let createMaps = () => {
 		let map = {name:'world', id:String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now(), regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]};
 		//maps.push(map);
@@ -96,22 +109,22 @@ const App = () => {
 			<Switch>
 				<Redirect exact from="/" to={ {pathname: "/welcome-screen"} } />
 				{
-					maps.map(map => <Route path={"/maps/" + map.name}  render={() => 
-						<MapsTable createRegion = {createRegion} deleteRegion = {deleteRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {[['/welcome-screen/', 'home'],['/welcome-screen/', '>'], ['/maps/', 'maps'],['/maps/', '>'], ['/maps/' + map.name, map.name]]}/>
+					todolists.map(map => <Route path={"/maps/" + map.name}  render={() => 
+						<MapsTable setMaps = {setMaps} createRegion = {createRegion} deleteRegion = {deleteRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {[['/welcome-screen/', 'home'],['/welcome-screen/', '>'], ['/maps/', 'maps'],['/maps/', '>'], ['/maps/' + map.name, map.name]]}/>
 					}  />)
 				}
 				<Route 
 					path="/welcome-screen" 
 					name="welcome-screen" 
 					render={() => 
-						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} route = {[['/welcome-screen/', 'home'], ['/welcome-screen/', '>'], ['/maps/', 'maps']]}/>
+						<Homescreen setMaps = {setMaps}  tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} route = {[['/welcome-screen/', 'home'], ['/welcome-screen/', '>'], ['/maps/', 'maps']]}/>
 					} 
 				/>
 				<Route 
 					path="/maps" 
 					name="maps" 
 					render={() => 
-						<Maps printUser = {printUser} renameMap = {renameMap} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} deleteMap = {deleteMap} createMaps = {createMaps}  maps = {maps} route = {[['/welcome-screen/', 'home'], ['/welcome-screen/', '>'], ['/maps/', 'maps']]}/>
+						<Maps  updateTodos = {updateTodos} printUser = {printUser} renameMap = {renameMap} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} deleteMap = {deleteMap} createMaps = {createMaps}  maps = {maps} route = {[['/welcome-screen/', 'home'], ['/welcome-screen/', '>'], ['/maps/', 'maps']]}/>
 					} 
 				/>
 				<Route/>

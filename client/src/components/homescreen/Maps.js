@@ -61,13 +61,9 @@ const Maps = (props) => {
 		// Assign todolists 
 		for(let todo of data.getAllTodos) {
 			todolists.push(todo)
+			
 		}
 		// if a list is selected, shift it to front of todolists
-		if(activeList._id) {
-			let selectedListIndex = todolists.findIndex(entry => entry._id === activeList._id);
-			let removed = todolists.splice(selectedListIndex, 1);
-			todolists.unshift(removed[0]);
-		}
 		// create data for sidebar links
 		for(let todo of todolists) {
 			if(todo) {
@@ -112,6 +108,11 @@ const Maps = (props) => {
 	const [AddMap]                  = useMutation(mutations.ADD_MAP);
 
 
+	
+	let handleUpdate = () =>{
+		console.log("FUCK THIS");
+		props.updateTodos(todolists)
+	}
 	
 	const tpsUndo = async () => {
 		const ret = await props.tps.undoTransaction();
@@ -196,7 +197,7 @@ const Maps = (props) => {
 			loadTodoList(data.addTodolist);
 		} 
 
-		console.log(todolists)
+		props.print();
 		
 	};
 
@@ -264,6 +265,7 @@ const Maps = (props) => {
               <WButton
                 className="route"
                 onClick={() => {
+			
                   history.push(route[0]);
                 }}
               >
@@ -326,6 +328,7 @@ const Maps = (props) => {
         {activeList ? (
           <div className="container-secondary">
             <MapsScreen
+			handleUpdate ={handleUpdate}
               createMaps={createNewList}
               deleteMap={deleteList}
               editMap={selectEditMap}

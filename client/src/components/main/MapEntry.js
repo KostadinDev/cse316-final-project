@@ -6,12 +6,13 @@ import { useHistory } from "react-router-dom";
 
 const MapEntry = (props) => {
     const history = useHistory();
-    const redirect = '/maps/' +props.map; 
+    const redirect = '/maps/' +props.map.name; 
     return (
       <div className="map-entry">
         <WButton
           className="button"
           onClick={() => {
+            props.handleUpdate()
             history.push(redirect);
             console.log(redirect);
           }}

@@ -16,7 +16,7 @@ const MapsContents = (props) => {
       <div className="map-container">
         <div className="map-list">
           {props.todolists.map((map) => (
-            <MapEntry map={map} editMap = {props.editMap} toggleShowEdit = {props.toggleShowEdit}  deleteMap = {props.deleteMap}/>
+            <MapEntry map={map} handleUpdate ={props.handleUpdate} editMap = {props.editMap} toggleShowEdit = {props.toggleShowEdit}  deleteMap = {props.deleteMap}/>
           ))}
         </div>
         <div className="map-image">

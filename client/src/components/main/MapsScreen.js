@@ -15,6 +15,7 @@ const MapsScreen = (props) => {
                 setActiveList={props.setActiveList}     sort={props.sort}
             />
             <MapsContents
+            handleUpdate ={props.handleUpdate}
             toggleShowEdit = {props.toggleShowEdit} 
             maps = {props.maps}
             todolists = {props.todolists}
