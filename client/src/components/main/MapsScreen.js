@@ -15,6 +15,9 @@ const MapsScreen = (props) => {
                 setActiveList={props.setActiveList}     sort={props.sort}
             />
             <MapsContents
+            maps = {props.maps}
+            deleteMap = {props.deleteMap}
+            createMaps = {props.createMaps}
                 key={props.activeList._id}      activeList={props.activeList}
                 deleteItem={props.deleteItem}   reorderItem={props.reorderItem}
                 editItem={props.editItem}

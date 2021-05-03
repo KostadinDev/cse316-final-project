@@ -1,4 +1,4 @@
-import React 			from 'react';
+import React , { useState }			from 'react';
 import Homescreen 		from './components/homescreen/Homescreen';
 import Maps 		from './components/homescreen/Maps';
 import MapsTable from './components/homescreen/MapsTable'
@@ -6,8 +6,18 @@ import { useQuery } 	from '@apollo/client';
 import * as queries 	from './cache/queries';
 import { jsTPS } 		from './utils/jsTPS';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
- 
+import MapsScreen from './components/main/MapsScreen';
+
+
+
+
 const App = () => {
+
+
+	const [maps, setMaps] = useState([])
+
+
+
 	let user = null;
     let transactionStack = new jsTPS();
 	let refreshTps = false;
@@ -18,8 +28,25 @@ const App = () => {
 	if(data) { 
 		let { getCurrentUser } = data;
 		if(getCurrentUser !== null) { user = getCurrentUser; }
-    }
-	let maps = [{name:'world',landmarks: ['everest', 'tokyo'], id:'world', regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']},{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: 'Shipka'},{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: 'Shipka'},{name:'USA'}]}, {name:'league'}] 
+    }	
+	let createMaps = () => {
+		let map = {name:'worlds',landmarks: ['everest', 'tokyo'], id:'worlds', regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]};
+		//maps.push(map);
+		setMaps([...maps, {name:'worlds',landmarks: ['everest', 'tokyo'], id:'worlds', regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]}]);
+	}
+
+	let deleteMap = (id) => {
+		for (let i = 0;i < maps.length;i++){
+			if (maps[i].id === id){
+				console.log(maps.length)
+				maps.splice(i, 1);
+				console.log(maps.length)
+				break;
+			}
+		}
+		setMaps([...maps]);
+		console.log(id)
+	}
 	return(
 		<BrowserRouter>
 			<Switch>
@@ -40,7 +67,7 @@ const App = () => {
 					path="/maps" 
 					name="maps" 
 					render={() => 
-						<Maps tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} />
+						<Maps tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} deleteMap = {deleteMap} createMaps = {createMaps} maps = {maps}/>
 					} 
 				/>
 				<Route/>

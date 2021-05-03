@@ -10,19 +10,19 @@ const MapsContents = (props) => {
         entries = entries.filter(entry => entry !== null);
         entryCount = entries.length
     }
-    let maps = [{name:'world'}, {name:'league of legends'}] 
+
     
     return (
       <div className="map-container">
         <div className="map-list">
-          {maps.map((map) => (
-            <MapEntry name={map.name} />
+          {props.maps.map((map) => (
+            <MapEntry map={map} deleteMap = {props.deleteMap}/>
           ))}
         </div>
         <div className="map-image">
           <div>image</div>
 
-          <WButton className = 'new-map-button'>Create New Map</WButton>
+          <WButton onClick = {props.createMaps} className = 'new-map-button'>Create New Map</WButton>
         </div>
       </div>
     );

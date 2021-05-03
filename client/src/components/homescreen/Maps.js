@@ -292,6 +292,9 @@ const Maps = (props) => {
 					
 							<div className="container-secondary">
 								<MapsScreen
+								 	createMaps = {props.createMaps}
+									 deleteMap = {props.deleteMap}
+									 maps = {props.maps}
 									addItem={addItem} 				deleteItem={deleteItem}
 									editItem={editItem} 			reorderItem={reorderItem}
 									setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}

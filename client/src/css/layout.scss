@@ -281,6 +281,7 @@ html {
 
 .map-list{
     width:50%;
+    background-color:pink;
     padding:50px;
 }
 .map-image{
@@ -432,4 +433,14 @@ html {
 }
 .landmarks-button{
     padding-right:20px;
+}
+
+.button{
+    background-color: transparent;
+    font-size:20px;
+}
+
+input{
+    // background-color: transparent;
+    // border:none;
 }
