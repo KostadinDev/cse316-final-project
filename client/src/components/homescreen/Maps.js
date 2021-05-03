@@ -11,16 +11,17 @@ import { GET_DB_TODOS } 				from '../../cache/queries';
 import React, { useState } 				from 'react';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
-import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
+import { WButton, WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
 import { UpdateListField_Transaction, 
 	SortItems_Transaction,
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction, 
 	EditItem_Transaction } 				from '../../utils/jsTPS';
 
+import { useHistory } from "react-router-dom";
 
 const Maps = (props) => {
-
+	const history = useHistory();
 	const keyCombination = (e, callback) => {
 		if(e.key === 'z' && e.ctrlKey) {
 			if(props.tps.hasTransactionToUndo()) {
@@ -242,6 +243,13 @@ const Maps = (props) => {
 						<WNavItem>
 							<Logo className='logo' />
 						</WNavItem>
+					</ul>
+					<ul>
+					{props.route.map((route) => (
+							<WButton className='route' onClick = {() => {history.push(route[0])}}>
+								{route[1]}
+							</WButton>
+						))}
 					</ul>
 					<ul>
 						<NavbarOptions

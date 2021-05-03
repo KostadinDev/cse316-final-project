@@ -54,7 +54,7 @@ const App = () => {
 				console.log(maps[i])
 				for (let j =0; j< maps[i].regions.length; j++){
 					if (maps[i].regions[j].id == region_id){
-						maps.regions.splice(j, 1);
+						maps[i].regions.splice(j, 1);
 				break;
 					}
 				}
@@ -81,21 +81,21 @@ const App = () => {
 				<Redirect exact from="/" to={ {pathname: "/welcome-screen"} } />
 				{
 					maps.map(map => <Route path={"/maps/" + map.id}  render={() => 
-						<MapsTable createRegion = {createRegion} deleteRegion = {deleteRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {[['/welcome-screen/', 'home'], ['/maps/', 'maps'], ['/maps/' + map.id, map.name]]}/>
+						<MapsTable createRegion = {createRegion} deleteRegion = {deleteRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {[['/welcome-screen/', 'home'],['/welcome-screen/', '>'], ['/maps/', 'maps'],['/maps/', '>'], ['/maps/' + map.id, map.name]]}/>
 					}  />)
 				}
 				<Route 
 					path="/welcome-screen" 
 					name="welcome-screen" 
 					render={() => 
-						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} route = {"welcome-screen/"}/>
+						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} route = {[['/welcome-screen/', 'home'], ['/welcome-screen/', '>'], ['/maps/', 'maps']]}/>
 					} 
 				/>
 				<Route 
 					path="/maps" 
 					name="maps" 
 					render={() => 
-						<Maps tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} deleteMap = {deleteMap} createMaps = {createMaps}  maps = {maps}/>
+						<Maps tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} deleteMap = {deleteMap} createMaps = {createMaps}  maps = {maps} route = {[['/welcome-screen/', 'home'], ['/welcome-screen/', '>'], ['/maps/', 'maps']]}/>
 					} 
 				/>
 				<Route/>

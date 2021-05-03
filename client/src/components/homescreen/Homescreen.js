@@ -17,9 +17,11 @@ import { UpdateListField_Transaction,
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction, 
 	EditItem_Transaction } 				from '../../utils/jsTPS';
+import { WButton } 	from 'wt-frontend';
+import { useHistory } from "react-router-dom";
 
 const Homescreen = (props) => {
-
+	const history = useHistory();
 	const keyCombination = (e, callback) => {
 		if(e.key === 'z' && e.ctrlKey) {
 			if(props.tps.hasTransactionToUndo()) {
@@ -243,6 +245,13 @@ const Homescreen = (props) => {
 						</WNavItem>
 					</ul>
 					<ul>
+					{props.route.map((route) => (
+							<WButton className='route' onClick = {() => {history.push(route[0])}}>
+								{route[1]}
+							</WButton>
+						))}
+					</ul>
+					<ul>
 						<NavbarOptions
 							fetchUser={props.fetchUser} 	auth={auth} 
 							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
@@ -252,20 +261,7 @@ const Homescreen = (props) => {
 				</WNavbar>
 			</WLHeader>
 			
-			<WLSide side="left">
-				<WSidebar>
-					{
-						activeList ? 
-							<SidebarContents
-								listIDs={SidebarData} 				activeid={activeList._id} auth={auth}
-								handleSetActive={handleSetActive} 	createNewList={createNewList}
-								updateListField={updateListField} 	key={activeList._id}
-							/>
-							:
-							<></>
-					}
-				</WSidebar>
-			</WLSide> 
+	
 			 <WLMain>
 				{
 					activeList ? 
