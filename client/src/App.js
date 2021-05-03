@@ -96,7 +96,6 @@ const App = () => {
 
 
 	let renameMap = (id, name) =>{
-		console.log("HELLO BITCHES")
 		for (let i = 0;i < maps.length;i++){
 			if (maps[i].id === id) {
         		maps[i].name = name;
@@ -110,7 +109,7 @@ const App = () => {
 				<Redirect exact from="/" to={ {pathname: "/welcome-screen"} } />
 				{
 					todolists.map(map => <Route path={"/maps/" + map.name}  render={() => 
-						<MapsTable setMaps = {setMaps} createRegion = {createRegion} deleteRegion = {deleteRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {[['/welcome-screen/', 'home'],['/welcome-screen/', '>'], ['/maps/', 'maps'],['/maps/', '>'], ['/maps/' + map.name, map.name]]}/>
+						<MapsTable key = {map._id} user = {user} setMaps = {setMaps} createRegion = {createRegion} deleteRegion = {deleteRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {[['/welcome-screen/', 'home'],['/welcome-screen/', '>'], ['/maps/', 'maps'],['/maps/', '>'], ['/maps/' + map.name, map.name]]}/>
 					}  />)
 				}
 				<Route 

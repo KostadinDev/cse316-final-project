@@ -16,7 +16,7 @@ const MapTableBody = (props) => {
               
           </div>
           {
-              props.map.regions?props.map.regions.map((region) => ( 
+              props.map?props.map.map((region) => ( 
               <div>
               <MapTableEntry deleteRegion = {props.deleteRegion} map = {props.map} className ='map-table-entry' region = {region}></MapTableEntry>
               </div>)):""

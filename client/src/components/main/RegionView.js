@@ -34,7 +34,7 @@ const RegionView = (props) => {
               Region Leader: <input type = 'text' value = {props.map.leader}/>
             </div>
             <div className="region-view-data-entry">
-              # of Sub Regions: {props.map.regions.length}
+              # of Sub Regions: {props.map.regions?props.map.regions.length:'0'}
             </div>
           </div>
         </div>

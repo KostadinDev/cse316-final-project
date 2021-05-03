@@ -197,7 +197,6 @@ const Maps = (props) => {
 			loadTodoList(data.addTodolist);
 		} 
 
-		props.print();
 		
 	};
 

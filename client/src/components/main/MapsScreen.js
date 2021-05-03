@@ -11,7 +11,8 @@ const MapsScreen = (props) => {
             <MapsHeader
                 disabled={!props.activeList._id}        addItem={props.addItem}
                 undo={props.undo} redo={props.redo}     canUndo={props.canUndo} 
-                canRedo={props.canRedo}                 setShowDelete={props.setShowDelete}
+                canRedo={props.canRedo}
+                addItem = {props.addItem}                 setShowDelete={props.setShowDelete}
                 setActiveList={props.setActiveList}     sort={props.sort}
             />
             <MapsContents
