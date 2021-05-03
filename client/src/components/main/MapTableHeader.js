@@ -28,7 +28,7 @@ const MapTableHeader = (props) => {
 
                     <WCol size="3" className ='map-table-header-entry'>
                 <div className="table-header-buttons">
-                <WButton onClick={props.disabled ? clickDisabled : props.addItem} wType="texted" className={`${buttonStyle}`} clickAnimation={props.disabled ? "" : "ripple-light" }>
+                <WButton onClick={() => { props.createRegion(props.map.id)}} wType="texted" className={`${buttonStyle}`} clickAnimation={props.disabled ? "" : "ripple-light" }>
                         <i className="material-icons">add_box</i>
                     </WButton>
 

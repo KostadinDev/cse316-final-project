@@ -35,6 +35,19 @@ const App = () => {
 		setMaps([...maps, {name:'world',landmarks: ['everest', 'tokyo'], id:'world', regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]}]);
 	}
 
+	let createRegion = (map_id) => {
+		let region = {name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']};
+		//maps.push(map);
+		for (let i =0;i < maps.length; i++){
+			if (maps[i].id == map_id){
+				maps[i].regions.push(region);
+				break;
+			}
+		}
+		console.log(map_id)
+		setMaps([...maps]);
+	}
+
 	let deleteMap = (id) => {
 		for (let i = 0;i < maps.length;i++){
 			if (maps[i].id === id){
@@ -53,7 +66,7 @@ const App = () => {
 				<Redirect exact from="/" to={ {pathname: "/welcome-screen"} } />
 				{
 					maps.map(map => <Route path={"/maps/" + map.id}  render={() => 
-						<MapsTable tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {['/welcome-screen/', '/maps/', '/maps/' + map.id]}/>
+						<MapsTable createRegion = {createRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {['/welcome-screen/', '/maps/', '/maps/' + map.id]}/>
 					}  />)
 				}
 				<Route 
@@ -67,7 +80,7 @@ const App = () => {
 					path="/maps" 
 					name="maps" 
 					render={() => 
-						<Maps tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} deleteMap = {deleteMap} createMaps = {createMaps} maps = {maps}/>
+						<Maps tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} deleteMap = {deleteMap} createMaps = {createMaps}  maps = {maps}/>
 					} 
 				/>
 				<Route/>

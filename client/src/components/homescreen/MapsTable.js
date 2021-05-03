@@ -279,6 +279,7 @@ const MapsTable = (props) => {
 					
 							<div className="container-secondary">
 								<MapTable
+									createRegion = {props.createRegion}
 									addItem={addItem} 				deleteItem={deleteItem}
 									editItem={editItem} 			reorderItem={reorderItem}
 									setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}
