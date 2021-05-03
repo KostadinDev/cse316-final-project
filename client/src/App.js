@@ -36,7 +36,7 @@ const App = () => {
 	}
 
 	let createRegion = (map_id) => {
-		let region = {name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']};
+		let region = {name:'Bulgaria', id:String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now(), capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']};
 		//maps.push(map);
 		for (let i =0;i < maps.length; i++){
 			if (maps[i].id == map_id){
@@ -75,6 +75,10 @@ const App = () => {
 		setMaps([...maps]);
 	}
 
+	let printUser = () =>{
+		console.log(user)
+	}
+
 
 	let renameMap = (id, name) =>{
 		console.log("HELLO BITCHES")
@@ -105,7 +109,7 @@ const App = () => {
 					path="/maps" 
 					name="maps" 
 					render={() => 
-						<Maps renameMap = {renameMap} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} deleteMap = {deleteMap} createMaps = {createMaps}  maps = {maps} route = {[['/welcome-screen/', 'home'], ['/welcome-screen/', '>'], ['/maps/', 'maps']]}/>
+						<Maps printUser = {printUser} renameMap = {renameMap} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} deleteMap = {deleteMap} createMaps = {createMaps}  maps = {maps} route = {[['/welcome-screen/', 'home'], ['/welcome-screen/', '>'], ['/maps/', 'maps']]}/>
 					} 
 				/>
 				<Route/>

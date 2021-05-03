@@ -20,6 +20,7 @@ import { UpdateListField_Transaction,
 	EditItem_Transaction } 				from '../../utils/jsTPS';
 
 import { useHistory } from "react-router-dom";
+import UpdateAccount from '../modals/UpdateAccount';
 
 const Maps = (props) => {
 	const history = useHistory();
@@ -38,6 +39,7 @@ const Maps = (props) => {
 	document.onkeydown = keyCombination;
 
 	const auth = props.user === null ? false : true;
+	let name = props.user === null? "": props.user.name;
 	let todolists 	= [];
 	let SidebarData = [];
 	const [sortRule, setSortRule] = useState('unsorted'); // 1 is ascending, -1 desc
@@ -47,6 +49,7 @@ const Maps = (props) => {
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
+	const [showUpdate, toggleShowUpdate] 	= useState(false);
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
@@ -241,32 +244,45 @@ const Maps = (props) => {
 	
 
 	return (
-		<WLayout wLayout="header-lside">
-			<WLHeader>
-				<WNavbar color="colored">
-					<ul>
-						<WNavItem>
-							<Logo className='logo' />
-						</WNavItem>
-					</ul>
-					<ul>
-					{props.route.map((route) => (
-							<WButton className='route' onClick = {() => {history.push(route[0])}}>
-								{route[1]}
-							</WButton>
-						))}
-					</ul>
-					<ul>
-						<NavbarOptions
-							fetchUser={props.fetchUser} 	auth={auth} 
-							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
-							reloadTodos={refetch} 			setActiveList={loadTodoList}
-						/>
-					</ul>
-				</WNavbar>
-			</WLHeader>
-			
-			{/* <WLSide side="left">
+    <WLayout wLayout="header-lside">
+      <WLHeader>
+        <WNavbar color="colored">
+          <ul>
+            <WNavItem>
+              <Logo className="logo" />
+            </WNavItem>
+          </ul>
+          <ul>
+            {props.route.map((route) => (
+              <WButton
+                className="route"
+                onClick={() => {
+                  history.push(route[0]);
+                }}
+              >
+                {route[1]}
+              </WButton>
+            ))}
+          </ul>
+          <ul>
+            <WButton onClick = {() =>{
+				toggleShowUpdate(true);
+			}} className="user-button">
+              {props.user ? props.user.firstName : ""}
+            </WButton>
+            <NavbarOptions
+              fetchUser={props.fetchUser}
+              auth={auth}
+              setShowCreate={setShowCreate}
+              setShowLogin={setShowLogin}
+              reloadTodos={refetch}
+              setActiveList={loadTodoList}
+            />
+          </ul>
+        </WNavbar>
+      </WLHeader>
+
+      {/* <WLSide side="left">
 				<WSidebar>
 					{
 						activeList ? 
@@ -280,7 +296,7 @@ const Maps = (props) => {
 					}
 				</WSidebar>
 			</WLSide> */}
-			{/* <WLMain>
+      {/* <WLMain>
 				{
 					activeList ? 
 					
@@ -299,50 +315,75 @@ const Maps = (props) => {
 				}
 
 			</WLMain> */}
-				<WLMain>
-				{
-					activeList ? 
-					
-							<div className="container-secondary">
-								<MapsScreen
-								 	createMaps = {props.createMaps}
-									 deleteMap = {props.deleteMap}
-									 editMap = {selectEditMap}
-									 maps = {props.maps}
-									addItem={addItem} 				deleteItem={deleteItem}
-									editItem={editItem}
-									toggleShowEdit = {toggleShowEdit} 			reorderItem={reorderItem}
-									setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}
-									activeList={activeList} 		setActiveList={loadTodoList}
-									canUndo={canUndo} 				canRedo={canRedo}
-									sort={sort}
-								/>
-							</div>
-						:
-							<div className="container-secondary" />
-				}
+      <WLMain>
+        {activeList ? (
+          <div className="container-secondary">
+            <MapsScreen
+              createMaps={props.createMaps}
+              deleteMap={props.deleteMap}
+              editMap={selectEditMap}
+              maps={props.maps}
+              addItem={addItem}
+              deleteItem={deleteItem}
+              editItem={editItem}
+              toggleShowEdit={toggleShowEdit}
+              reorderItem={reorderItem}
+              setShowDelete={setShowDelete}
+              undo={tpsUndo}
+              redo={tpsRedo}
+              activeList={activeList}
+              setActiveList={loadTodoList}
+              canUndo={canUndo}
+              canRedo={canRedo}
+              sort={sort}
+            />
+          </div>
+        ) : (
+          <div className="container-secondary" />
+        )}
+      </WLMain>
 
-			</WLMain>
-		
-			
+      {showDelete && (
+        <Delete
+          deleteList={deleteList}
+          activeid={activeList._id}
+          map={editMap}
+          setShowDelete={setShowDelete}
+        />
+      )}
+      {showEdit && (
+        <EditMap
+          renameMap={props.renameMap}
+          deleteList={deleteList}
+          activeid={activeList._id}
+          showEdit={showEdit}
+          map={editMap}
+          toggleShowEdit={toggleShowEdit}
+        />
+      )}
 
-			{
-				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} map ={editMap} setShowDelete={setShowDelete} />)
-			}
-			{
-				showEdit && (<EditMap renameMap = {props.renameMap} deleteList={deleteList} activeid={activeList._id} showEdit = {showEdit} map = {editMap} toggleShowEdit={toggleShowEdit} />)
-			}
+      {showCreate && (
+        <CreateAccount
+          fetchUser={props.fetchUser}
+          setShowCreate={setShowCreate}
+        />
+      )}
+      {showUpdate && (
+        <UpdateAccount
+          fetchUser={props.fetchUser}
+          setShowCreate={setShowCreate}
+        />
+      )}
 
-			{
-				showCreate && (<CreateAccount fetchUser={props.fetchUser} setShowCreate={setShowCreate} />)
-			}
-
-			{
-				showLogin && (<Login fetchUser={props.fetchUser} reloadTodos={refetch}setShowLogin={setShowLogin} />)
-			}
-
-		</WLayout>
-	);
+      {showLogin && (
+        <Login
+          fetchUser={props.fetchUser}
+          reloadTodos={refetch}
+          setShowLogin={setShowLogin}
+        />
+      )}
+    </WLayout>
+  );
 };
 
 export default Maps;

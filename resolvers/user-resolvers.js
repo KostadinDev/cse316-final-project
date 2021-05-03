@@ -74,6 +74,7 @@ module.exports = {
 			res.cookie('access-token', accessToken, { httpOnly: true , sameSite: 'None', secure: true}); 
 			return user;
 		},
+		
 		/** 
 			@param 	 {object} res - response object containing the current access/refresh tokens  
 			@returns {boolean} true 
