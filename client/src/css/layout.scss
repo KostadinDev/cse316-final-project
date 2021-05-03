@@ -470,3 +470,13 @@ input{
     height:20px;
 
 }
+
+.edit-map-finished{
+    display:flex;
+    justify-content: center;
+}
+
+.map-entry:hover{
+    background-color: rgba(175,175,175,0.5);
+    border-radius: 5px;
+}

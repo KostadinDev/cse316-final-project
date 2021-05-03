@@ -30,9 +30,9 @@ const App = () => {
 		if(getCurrentUser !== null) { user = getCurrentUser; }
     }	
 	let createMaps = () => {
-		let map = {name:'world',landmarks: ['everest', 'tokyo'], id:'world', regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]};
+		let map = {name:'world',landmarks: ['everest', 'tokyo'], id:String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now(), regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]};
 		//maps.push(map);
-		setMaps([...maps, {name:'world',landmarks: ['everest', 'tokyo'], id:'world', regions:[{name:'Bulgaria', id: 'bg',capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]}]);
+		setMaps([...maps, map]);
 	}
 
 	let createRegion = (map_id) => {
@@ -73,15 +73,25 @@ const App = () => {
 			}
 		}
 		setMaps([...maps]);
-		console.log(id)
+	}
+
+
+	let renameMap = (id, name) =>{
+		console.log("HELLO BITCHES")
+		for (let i = 0;i < maps.length;i++){
+			if (maps[i].id === id) {
+        		maps[i].name = name;
+      }
+		}
+		setMaps([...maps]);
 	}
 	return(
 		<BrowserRouter>
 			<Switch>
 				<Redirect exact from="/" to={ {pathname: "/welcome-screen"} } />
 				{
-					maps.map(map => <Route path={"/maps/" + map.id}  render={() => 
-						<MapsTable createRegion = {createRegion} deleteRegion = {deleteRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {[['/welcome-screen/', 'home'],['/welcome-screen/', '>'], ['/maps/', 'maps'],['/maps/', '>'], ['/maps/' + map.id, map.name]]}/>
+					maps.map(map => <Route path={"/maps/" + map.name}  render={() => 
+						<MapsTable createRegion = {createRegion} deleteRegion = {deleteRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {[['/welcome-screen/', 'home'],['/welcome-screen/', '>'], ['/maps/', 'maps'],['/maps/', '>'], ['/maps/' + map.name, map.name]]}/>
 					}  />)
 				}
 				<Route 
@@ -95,7 +105,7 @@ const App = () => {
 					path="/maps" 
 					name="maps" 
 					render={() => 
-						<Maps tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} deleteMap = {deleteMap} createMaps = {createMaps}  maps = {maps} route = {[['/welcome-screen/', 'home'], ['/welcome-screen/', '>'], ['/maps/', 'maps']]}/>
+						<Maps renameMap = {renameMap} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} deleteMap = {deleteMap} createMaps = {createMaps}  maps = {maps} route = {[['/welcome-screen/', 'home'], ['/welcome-screen/', '>'], ['/maps/', 'maps']]}/>
 					} 
 				/>
 				<Route/>

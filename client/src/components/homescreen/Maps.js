@@ -330,7 +330,7 @@ const Maps = (props) => {
 				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} map ={editMap} setShowDelete={setShowDelete} />)
 			}
 			{
-				showEdit && (<EditMap deleteList={deleteList} activeid={activeList._id} showEdit = {showEdit} map = {editMap} toggleShowEdit={toggleShowEdit} />)
+				showEdit && (<EditMap renameMap = {props.renameMap} deleteList={deleteList} activeid={activeList._id} showEdit = {showEdit} map = {editMap} toggleShowEdit={toggleShowEdit} />)
 			}
 
 			{
