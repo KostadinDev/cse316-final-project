@@ -1,6 +1,7 @@
 import Logo 							from '../navbar/Logo';
 import Login 							from '../modals/Login';
 import Delete 							from '../modals/Delete';
+import EditMap 							from '../modals/EditMap';
 import MainContents 					from '../main/MainContents';
 import MapsScreen 						from '../main/MapsScreen';
 import CreateAccount 					from '../modals/CreateAccount';
@@ -41,6 +42,8 @@ const Maps = (props) => {
 	let SidebarData = [];
 	const [sortRule, setSortRule] = useState('unsorted'); // 1 is ascending, -1 desc
 	const [activeList, setActiveList] 		= useState({});
+	const [showEdit, toggleShowEdit] 		= useState(false);
+	let   [editMap, selectEditMap] 			= useState(null);
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
@@ -96,7 +99,7 @@ const Maps = (props) => {
 	}
 
 	const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS, mutationOptions);
-	const [sortTodoItems] 		= useMutation(mutations.SORT_ITEMS, mutationOptions);
+	const [sortTodoItems] 		    = useMutation(mutations.SORT_ITEMS, mutationOptions);
 	const [UpdateTodoItemField] 	= useMutation(mutations.UPDATE_ITEM_FIELD, mutationOptions);
 	const [UpdateTodolistField] 	= useMutation(mutations.UPDATE_TODOLIST_FIELD, mutationOptions);
 	const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM, mutationOptions);
@@ -235,6 +238,8 @@ const Maps = (props) => {
 		
 	}
 
+	
+
 	return (
 		<WLayout wLayout="header-lside">
 			<WLHeader>
@@ -302,9 +307,11 @@ const Maps = (props) => {
 								<MapsScreen
 								 	createMaps = {props.createMaps}
 									 deleteMap = {props.deleteMap}
+									 editMap = {selectEditMap}
 									 maps = {props.maps}
 									addItem={addItem} 				deleteItem={deleteItem}
-									editItem={editItem} 			reorderItem={reorderItem}
+									editItem={editItem}
+									toggleShowEdit = {toggleShowEdit} 			reorderItem={reorderItem}
 									setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}
 									activeList={activeList} 		setActiveList={loadTodoList}
 									canUndo={canUndo} 				canRedo={canRedo}
@@ -320,7 +327,10 @@ const Maps = (props) => {
 			
 
 			{
-				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} setShowDelete={setShowDelete} />)
+				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} map ={editMap} setShowDelete={setShowDelete} />)
+			}
+			{
+				showEdit && (<EditMap deleteList={deleteList} activeid={activeList._id} showEdit = {showEdit} map = {editMap} toggleShowEdit={toggleShowEdit} />)
 			}
 
 			{

@@ -460,3 +460,13 @@ input{
     color:white;
     font-size:40px;
 }
+.editmap{
+    display:flex;
+    flex-direction: column;
+}
+.modal-editmap{
+    padding:20px;
+    margin-top:10px;
+    height:20px;
+
+}
