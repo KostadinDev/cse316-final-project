@@ -27,7 +27,7 @@ class MapTable extends React.Component{
               
                 {this.state.view % 2 == 0?<div className="map-table ">
                 <MapTableHeader map={this.props.map} createRegion = {this.props.createRegion}/>
-                <MapTableBody map={this.props.map} />
+                <MapTableBody deleteRegion = {this.props.deleteRegion} map={this.props.map} />
               </div>:
               <RegionView map ={this.props.map}></RegionView>}
             </div>

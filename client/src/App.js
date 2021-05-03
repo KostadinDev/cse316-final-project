@@ -32,7 +32,7 @@ const App = () => {
 	let createMaps = () => {
 		let map = {name:'world',landmarks: ['everest', 'tokyo'], id:'world', regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]};
 		//maps.push(map);
-		setMaps([...maps, {name:'world',landmarks: ['everest', 'tokyo'], id:'world', regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]}]);
+		setMaps([...maps, {name:'world',landmarks: ['everest', 'tokyo'], id:'world', regions:[{name:'Bulgaria', id: 'bg',capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]}]);
 	}
 
 	let createRegion = (map_id) => {
@@ -47,13 +47,28 @@ const App = () => {
 		console.log(map_id)
 		setMaps([...maps]);
 	}
+	let deleteRegion = (map_id, region_id) => {
+		
+		for (let i =0;i < maps.length; i++){
+			if (maps[i].id == map_id){
+				console.log(maps[i])
+				for (let j =0; j< maps[i].regions.length; j++){
+					if (maps[i].regions[j].id == region_id){
+						maps[i].regions.splice(j, 1);
+				break;
+					}
+				}
+				break;
+			}
+		}
+		console.log(map_id)
+		setMaps([...maps]);
+	}
 
 	let deleteMap = (id) => {
 		for (let i = 0;i < maps.length;i++){
 			if (maps[i].id === id){
-				console.log(maps.length)
 				maps.splice(i, 1);
-				console.log(maps.length)
 				break;
 			}
 		}
@@ -66,7 +81,7 @@ const App = () => {
 				<Redirect exact from="/" to={ {pathname: "/welcome-screen"} } />
 				{
 					maps.map(map => <Route path={"/maps/" + map.id}  render={() => 
-						<MapsTable createRegion = {createRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {['/welcome-screen/', '/maps/', '/maps/' + map.id]}/>
+						<MapsTable createRegion = {createRegion} deleteRegion = {deleteRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {['/welcome-screen/', '/maps/', '/maps/' + map.id]}/>
 					}  />)
 				}
 				<Route 

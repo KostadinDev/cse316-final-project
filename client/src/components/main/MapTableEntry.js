@@ -7,7 +7,7 @@ const TableEntry = (props) => {
 
     return <div className = "map-table-entry">
         <div className = 'map-table-entry-name'>
-        <WButton className="table-entry-buttons red" wType="texted">
+        <WButton onClick = {() => {props.deleteRegion(props.map.id, props.region.id)}} className="table-entry-buttons red" wType="texted">
                         <i className="material-icons">close</i>
                     </WButton>
         <input className = 'map-table-entry-name' value = {props.region.name}></input>
