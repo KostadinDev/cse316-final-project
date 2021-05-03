@@ -1,6 +1,7 @@
 import React        from 'react';
 import MapEntry   from './MapEntry';
 
+import { WButton, WRow, WCol } from 'wt-frontend';
 const MapsContents = (props) => {
 
     let entries = props.activeList ? props.activeList.items : null;
@@ -21,7 +22,7 @@ const MapsContents = (props) => {
         <div className="map-image">
           <div>image</div>
 
-          <div className = 'new-map-button'>Create New Map</div>
+          <WButton className = 'new-map-button'>Create New Map</WButton>
         </div>
       </div>
     );

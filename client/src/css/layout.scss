@@ -397,3 +397,39 @@ html {
 .map-table-entry{
     width:100%;
 }
+
+.view-changer{
+    width:80%;
+    display:flex;
+    padding-top:20px;
+    justify-content: center;
+}
+
+.region-view-landmarks-data{
+    height:90%;
+    width:100%;
+
+}
+.region-view-landmarks-add{
+    height:10%;
+    width:100%;
+}
+.region-view-landmarks-add-button{
+    height:100%;
+    width:10%;
+    color:green;
+}
+.region-view-landmarks-add-input{
+    height:100%;
+    width:90%;
+    padding:10px;
+    font-size:20px;
+}
+
+.landmarks {
+    display: flex;
+    flex-direction: row;
+}
+.landmarks-button{
+    padding-right:20px;
+}

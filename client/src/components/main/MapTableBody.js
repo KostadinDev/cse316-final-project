@@ -8,18 +8,18 @@ const MapTableBody = (props) => {
     return (
       <div>
           <div className = 'map-table-body-header'>
-              <div>Name</div>
-              <div>Capital</div>
-              <div>Leader</div>
-              <div>Flag</div>
-              <div>Landmarks</div>
+              <div className = 'map-table-entry-name'>Name</div>
+              <div className = 'map-table-entry-name'>Capital</div>
+              <div className = 'map-table-entry-name'>Leader</div>
+              <div className = 'map-table-entry-name'>Flag</div>
+              <div className = 'map-table-entry-name'>Landmarks</div>
               
           </div>
           {
-              props.map.regions.map((region) => ( 
+              props.map.regions?props.map.regions.map((region) => ( 
               <div>
               <MapTableEntry className ='map-table-entry' region = {region}></MapTableEntry>
-              </div>))
+              </div>)):""
           }
                  
          

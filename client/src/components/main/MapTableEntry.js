@@ -7,15 +7,15 @@ const TableEntry = (props) => {
 
     return <div className = "map-table-entry">
         <div className = 'map-table-entry-name'>
-        <WButton className="table-entry-buttons" wType="texted">
+        <WButton className="table-entry-buttons red" wType="texted">
                         <i className="material-icons">close</i>
                     </WButton>
-        <div className = 'map-table-entry-name'>{props.region.name}</div>
+        <input className = 'map-table-entry-name' value = {props.region.name}></input>
         </div>
-        <div className = 'map-table-entry-name'> {props.region.capital}</div>
-        <div className = 'map-table-entry-name' >{props.region.leader}</div>
-        <div className = 'map-table-entry-name'>{props.region.flag}</div>
-        <div className = 'map-table-entry-name'>{props.region.landmarks}</div>
+        <input className = 'map-table-entry-name' value = {props.region.capital}/> 
+        <input className = 'map-table-entry-name' value = {props.region.leader}/>
+        <div className = 'map-table-entry-name' ></div>
+        <div className = 'map-table-entry-name'  >{props.region.landmarks}</div>
     </div>;
 };
 

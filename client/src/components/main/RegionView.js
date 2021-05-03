@@ -22,23 +22,45 @@ const RegionView = (props) => {
           <div className="region-view-image">image</div>
           <div className="region-view-data">
             <div className="region-view-data-entry">
-              Region Name: {props.map.name}
+              Region Name: <input type = 'text' value = {props.map.name}/>
             </div>
             <div className="region-view-data-entry">
-              Region Name: {props.map.name}
+            Region Name: <input type = 'text' value = {props.map.name}/>
             </div>
             <div className="region-view-data-entry">
-              Region Capital: {props.map.capital}
+              Region Capital: <input type = 'text' value = {props.map.capital}/>
             </div>
             <div className="region-view-data-entry">
-              Region Leader: {props.map.leader}
+              Region Leader: <input type = 'text' value = {props.map.leader}/>
             </div>
             <div className="region-view-data-entry">
               # of Sub Regions: {props.map.regions.length}
             </div>
           </div>
         </div>
-        <div className="region-view-landmarks"></div>
+        <div className="region-view-landmarks">
+        <div className="region-view-data region-view-landmarks-data">
+            <div className="region-view-data-entry">
+             {props.map.landmarks?props.map.landmarks.map((landmark) => (<div className = 'landmarks'>
+             <WButton className="table-entry-buttons red landmarks-button" wType="texted">
+             <i className="material-icons">close</i>
+         </WButton>
+             <div>{landmark}</div>
+             </div>)):""}
+            </div>
+            
+          </div>
+
+          <div className = 'region-view-landmarks-add'>
+          <WButton className=" region-view-landmarks-add-button" wType="texted">
+                        <i className="material-icons">add_box</i>
+                    </WButton>
+
+
+                
+            <input className = 'region-view-landmarks-add-input' value = 'hello'></input>
+          </div>
+        </div>
       </div>
     );
 };
