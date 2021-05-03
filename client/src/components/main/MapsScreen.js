@@ -17,6 +17,7 @@ const MapsScreen = (props) => {
             <MapsContents
             toggleShowEdit = {props.toggleShowEdit} 
             maps = {props.maps}
+            todolists = {props.todolists}
             editMap = {props.editMap}
             deleteMap = {props.deleteMap}
             createMaps = {props.createMaps}

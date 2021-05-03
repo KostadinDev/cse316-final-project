@@ -1,13 +1,15 @@
 import React, { useState } 	from 'react';
-import { REGISTER }			from '../../cache/mutations';
+import { UPDATE }			from '../../cache/mutations';
 import { useMutation }    	from '@apollo/client';
 
 import { WModal, WMHeader, WMMain, WMFooter, WButton, WInput, WRow, WCol } from 'wt-frontend';
 
 const UpdateAccount = (props) => {
-	const [input, setInput] = useState({ email: '', password: '', firstName: '', lastName: '' });
+	const [input, setInput] = useState({ email: '', password: '', firstName: '', lastName: '', current_email: props.user.email});
 	const [loading, toggleLoading] = useState(false);
-	const [Register] = useMutation(REGISTER);
+	const [Update] = useMutation(UPDATE);
+	
+
 
 	
 	const updateInput = (e) => {
@@ -23,26 +25,16 @@ const UpdateAccount = (props) => {
 				return;
 			}
 		}
-		const { loading, error, data } = await Register({ variables: { ...input } });
-		if (loading) { toggleLoading(true) };
-		if (error) { return `Error: ${error.message}` };
-		if (data) {
-			console.log(data)
-			toggleLoading(false);
-			if(data.register.email === 'already exists') {
-				alert('User with that email already registered');
-			}
-			else {
-				props.fetchUser();
-			}
-			props.setShowCreate(false);
+		const { loading, error, data } = await Update({ variables: { ...input } });
+        
+        console.log(loading, error, data)
+        props.toggleShowUpdate(false);
 
-		};
 	};
 
 	return (
-		<WModal className="signup-modal"  cover="true" visible={props.setShowCreate}>
-			<WMHeader  className="modal-header" onClose={() => props.setShowCreate(false)}>
+		<WModal className="signup-modal"  cover="true" visible={props.showUpdate}>
+			<WMHeader  className="modal-header" onClose={() => props.toggleShowUpdate(false)}>
 				Update Account
 			</WMHeader>
 

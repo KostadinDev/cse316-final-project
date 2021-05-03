@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 const MapEntry = (props) => {
     const history = useHistory();
-    const redirect = '/maps/' +props.map.name; 
+    const redirect = '/maps/' +props.map; 
     return (
       <div className="map-entry">
         <WButton
@@ -22,9 +22,10 @@ const MapEntry = (props) => {
         <WButton
             wType="texted"
             className="button"
-            onClick={() => {props.toggleShowEdit(true); 
-                props.editMap(props.map);
-            console.log(props.map)}}
+            onClick={() => {
+              props.toggleShowEdit(true); 
+                props.editMap(props.map);}
+          }
             clickAnimation={props.disabled ? "" : "ripple-light"}
           >
             <i className="material-icons">edit</i>
@@ -32,7 +33,7 @@ const MapEntry = (props) => {
           <WButton
             wType="texted"
             className="button"
-            onClick={() => props.deleteMap(props.map.id)}
+            onClick={() => props.deleteMap(props.map._id)}
             clickAnimation={props.disabled ? "" : "ripple-light"}
           >
             <i className="material-icons">delete_outline</i>

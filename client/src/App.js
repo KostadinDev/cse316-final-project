@@ -30,10 +30,12 @@ const App = () => {
 		if(getCurrentUser !== null) { user = getCurrentUser; }
     }	
 	let createMaps = () => {
-		let map = {name:'world',landmarks: ['everest', 'tokyo'], id:String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now(), regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]};
+		let map = {name:'world', id:String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now(), regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]};
 		//maps.push(map);
 		setMaps([...maps, map]);
 	}
+
+
 
 	let createRegion = (map_id) => {
 		let region = {name:'Bulgaria', id:String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now(), capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']};

@@ -76,6 +76,36 @@ module.exports = {
 		},
 		
 		/** 
+			@param 	 {object} args - registration info
+			@param 	 {object} res - response object containing the current access/refresh tokens  
+			@returns {object} the user object or an object with an error message
+		**/
+		update: async (_, args, { res }) => {
+			const { email, password, firstName, lastName,current_email } = args;
+			console.log(current_email)
+			const current_user = await User.findOneAndDelete({email: current_email});
+			console.log(current_user, 'HELLO');
+	
+			const hashed = await bcrypt.hash(password, 10);
+			const _id = new ObjectId();
+			const user = new User({
+				_id: _id,
+				firstName: firstName,
+				lastName: lastName,
+				email: email, 
+				password: hashed,
+				initials: `${firstName[0]}.${lastName[0]}.`
+			})
+			const saved = await user.save();
+			// After registering the user, their tokens are generated here so they
+			// are automatically logged in on account creation.
+			const accessToken = tokens.generateAccessToken(user);
+			const refreshToken = tokens.generateRefreshToken(user);
+			res.cookie('refresh-token', refreshToken, { httpOnly: true , sameSite: 'None', secure: true}); 
+			res.cookie('access-token', accessToken, { httpOnly: true , sameSite: 'None', secure: true}); 
+			return user;
+		},
+		/** 
 			@param 	 {object} res - response object containing the current access/refresh tokens  
 			@returns {boolean} true 
 		**/

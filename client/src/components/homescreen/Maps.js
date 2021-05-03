@@ -109,6 +109,7 @@ const Maps = (props) => {
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM, mutationOptions);
 	const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
+	const [AddMap]                  = useMutation(mutations.ADD_MAP);
 
 
 	
@@ -194,14 +195,20 @@ const Maps = (props) => {
 		if(data) {
 			loadTodoList(data.addTodolist);
 		} 
+
+		console.log(todolists)
 		
 	};
+
 	const deleteList = async (_id) => {
+		console.log(_id)
 		DeleteTodolist({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_TODOS }] });
 		loadTodoList({});
 	};
 
 	const updateListField = async (_id, field, value, prev) => {
+		console.log("MAIKATI")
+		console.log(_id, field, prev, value)
 		let transaction = new UpdateListField_Transaction(_id, field, prev, value, UpdateTodolistField);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
@@ -319,10 +326,11 @@ const Maps = (props) => {
         {activeList ? (
           <div className="container-secondary">
             <MapsScreen
-              createMaps={props.createMaps}
-              deleteMap={props.deleteMap}
+              createMaps={createNewList}
+              deleteMap={deleteList}
               editMap={selectEditMap}
               maps={props.maps}
+			  todolists={todolists}
               addItem={addItem}
               deleteItem={deleteItem}
               editItem={editItem}
@@ -357,6 +365,7 @@ const Maps = (props) => {
           deleteList={deleteList}
           activeid={activeList._id}
           showEdit={showEdit}
+		  updateListField = {updateListField}
           map={editMap}
           toggleShowEdit={toggleShowEdit}
         />
@@ -371,7 +380,10 @@ const Maps = (props) => {
       {showUpdate && (
         <UpdateAccount
           fetchUser={props.fetchUser}
-          setShowCreate={setShowCreate}
+          toggleShowUpdate={toggleShowUpdate}
+		  updateListField = {updateListField}
+		  showUpdate = {showUpdate}
+		  user = {props.user}
         />
       )}
 

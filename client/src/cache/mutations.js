@@ -23,6 +23,18 @@ export const REGISTER = gql`
 		}
 	}
 `;
+
+export const UPDATE = gql`
+	mutation Update($email: String!, $password: String!, $firstName: String!, $lastName: String!, $current_email: String!) {
+		update(email: $email, password: $password, firstName: $firstName, lastName: $lastName, current_email: $current_email) {
+			email
+			password
+			firstName
+			lastName
+		}
+	}
+`;
+
 export const LOGOUT = gql`
 	mutation Logout {
 		logout 
@@ -98,6 +110,22 @@ export const ADD_TODOLIST = gql`
 			}
 			sortRule
 			sortDirection
+		}
+	}
+`;
+
+export const ADD_MAP = gql`
+	mutation AddMap($map: Map!) {
+		addMap(map: $map) {
+			id
+			name
+			regions {
+				id
+				name
+				capital
+				leader
+				landmarks
+			}
 		}
 	}
 `;
