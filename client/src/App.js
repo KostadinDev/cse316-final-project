@@ -30,9 +30,9 @@ const App = () => {
 		if(getCurrentUser !== null) { user = getCurrentUser; }
     }	
 	let createMaps = () => {
-		let map = {name:'worlds',landmarks: ['everest', 'tokyo'], id:'worlds', regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]};
+		let map = {name:'world',landmarks: ['everest', 'tokyo'], id:'world', regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]};
 		//maps.push(map);
-		setMaps([...maps, {name:'worlds',landmarks: ['everest', 'tokyo'], id:'worlds', regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]}]);
+		setMaps([...maps, {name:'world',landmarks: ['everest', 'tokyo'], id:'world', regions:[{name:'Bulgaria', capital:'Sofia', leader:'radev', 'flag':'bg', landmarks: ['Shipka', 'carevo']}]}]);
 	}
 
 	let deleteMap = (id) => {
