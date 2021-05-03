@@ -53,7 +53,7 @@ const App = () => {
 				<Redirect exact from="/" to={ {pathname: "/welcome-screen"} } />
 				{
 					maps.map(map => <Route path={"/maps/" + map.id}  render={() => 
-						<MapsTable tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {"maps/" + map.id}/>
+						<MapsTable tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {['/welcome-screen/', '/maps/', '/maps/' + map.id]}/>
 					}  />)
 				}
 				<Route 

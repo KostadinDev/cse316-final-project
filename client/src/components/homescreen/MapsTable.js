@@ -19,10 +19,11 @@ import { UpdateListField_Transaction,
 	EditItem_Transaction } 				from '../../utils/jsTPS';
 
 import MapTable from '../main/MapTable';
-
+import { WButton, WRow, WCol } from 'wt-frontend';
+import { useHistory } from "react-router-dom";
 
 const MapsTable = (props) => {
-
+	const history = useHistory();
 	const keyCombination = (e, callback) => {
 		if(e.key === 'z' && e.ctrlKey) {
 			if(props.tps.hasTransactionToUndo()) {
@@ -245,8 +246,23 @@ const MapsTable = (props) => {
 							<Logo className='logo' />
 						</WNavItem>
 					</ul>
-					<ul>
-						{props.route}
+					<ul className = 'routes'>
+						{props.route.map((route) => (
+							<WButton className='route' onClick = {() => {history.push(route)}}>
+								{route}
+							</WButton>
+						))}
+
+<div className="table-header-buttons">
+              
+
+                    <WButton >
+                            <i className="material-icons">undo</i>
+                    </WButton>
+                    <WButton >
+                            <i className="material-icons">redo</i>
+                    </WButton>
+                </div>
 					</ul>
 					<ul>
 						<NavbarOptions
