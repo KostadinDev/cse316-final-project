@@ -42,7 +42,7 @@ const MapTableHeader = (props) => {
             </WCol>
 
             <WCol size="3" className ='map-table-header-entry'>
-                <WButton  onClick={props.disabled ? () => {} : () => props.sort('task') } className='table-header-section' wType="texted" >Region Name: <div className = 'link'>{props.map.name}</div></WButton>
+                <WButton   className='table-header-section' wType="texted" >Region Name: <div className = 'link'>{props.map.name}</div></WButton>
             </WCol>
 
 

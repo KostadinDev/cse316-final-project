@@ -1,10 +1,13 @@
 import React from 'react';
+import WButton from 'wt-frontend/build/components/wbutton/WButton';
+import { useHistory } from "react-router-dom";
 
 const Logo = (props) => {
+    const history = useHistory();
     return (
-        <div className='logo'>
+        <WButton  onClick = {() => {history.push('/welcome-screen')}} className='logo'>
             World Data Mapper
-        </div>
+        </WButton>
     );
 };
 
