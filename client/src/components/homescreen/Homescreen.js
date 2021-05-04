@@ -19,6 +19,8 @@ import { UpdateListField_Transaction,
 	EditItem_Transaction } 				from '../../utils/jsTPS';
 import { WButton } 	from 'wt-frontend';
 import { useHistory } from "react-router-dom";
+import UpdateAccount from '../modals/UpdateAccount';
+
 
 const Homescreen = (props) => {
 	const history = useHistory();
@@ -44,6 +46,7 @@ const Homescreen = (props) => {
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
+	const [showUpdate, toggleShowUpdate] 	= useState(false);
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
@@ -252,6 +255,11 @@ const Homescreen = (props) => {
 						))}
 					</ul>
 					<ul>
+					<WButton onClick = {() =>{
+				toggleShowUpdate(true);
+			}} className="user-button">
+              {props.user ? props.user.firstName : ""}
+            </WButton>
 						<NavbarOptions
 							fetchUser={props.fetchUser} 	auth={auth} 
 							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
@@ -314,6 +322,15 @@ const Homescreen = (props) => {
 			{
 				showLogin && (<Login fetchUser={props.fetchUser} reloadTodos={refetch}setShowLogin={setShowLogin} />)
 			}
+			      {showUpdate && (
+        <UpdateAccount
+          fetchUser={props.fetchUser}
+          toggleShowUpdate={toggleShowUpdate}
+		  updateListField = {updateListField}
+		  showUpdate = {showUpdate}
+		  user = {props.user}
+        />
+      )}
 
 		</WLayout>
 	);

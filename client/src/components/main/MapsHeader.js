@@ -25,7 +25,7 @@ const MapsHeader = (props) => {
     return (
         <WRow className="table-header">
             <WCol size="12">
-                <WButton onClick={props.disabled ? () => {} : () => props.sort('task') } className='table-header-section' wType="texted" >Your Maps</WButton>
+                <WButton  className='table-header-section' wType="texted" >Your Maps</WButton>
             </WCol>
 
           

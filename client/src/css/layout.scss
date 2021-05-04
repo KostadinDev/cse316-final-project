@@ -281,8 +281,10 @@ html {
 
 .map-list{
     width:50%;
+    height:500px;
     background-color:pink;
     padding:50px;
+    overflow:auto;
 }
 .map-image{
     width:50%;
@@ -316,6 +318,8 @@ html {
 
 .map-table{
     width:80%;
+    height:700px;
+    overflow:auto;
 }
 
 .map-table-entry{

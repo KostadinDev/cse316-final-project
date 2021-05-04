@@ -140,9 +140,42 @@ const MapTable = (props) => {
         }
       }
       setRegions(current.items);
-      console.log(current, 'THIS')
 
 
+  
+    };
+
+
+    const deleteItem = async (item) => {
+      let listID = props.map._id;
+      let itemID = item._id;
+      let opcode = 0;
+      let itemToDelete = {
+        _id: item._id,
+        description: item.description,
+        due_date: item.due_date,
+        assigned_to: item.assigned_to,
+        completed: item.completed
+      }
+      
+      let index = 0;
+      for (let i =0;i <current.items.length;i++){
+        if (current.items[i]._id == item._id){
+          index = i;
+        }
+      }
+      let transaction = new UpdateListItems_Transaction(listID, itemID, itemToDelete, opcode, AddTodoItem, DeleteTodoItem, index);
+      transactionStack.addTransaction(transaction);
+      tpsRedo();
+      setTodolists(todolists)
+      for (let i =0 ;i<todolists.length;i++){
+        if (todolists[i]._id == current._id){
+          current = todolists[i];
+
+        }
+      }
+      setRegions(current.items);
+      
   
     };
 
@@ -159,7 +192,7 @@ const MapTable = (props) => {
         
           {view %2== 0?<div className="map-table ">
           <MapTableHeader map={current} addItem = {addItem} />
-          <MapTableBody map={regions} />
+          <MapTableBody map={regions} deleteItem = {deleteItem}/>
         </div>:
         <RegionView map ={current}></RegionView>}
       </div>

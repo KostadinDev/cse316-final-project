@@ -9,6 +9,7 @@ import * as mutations 					from '../../cache/mutations';
 import SidebarContents 					from '../sidebar/SidebarContents';
 import { GET_DB_TODOS } 				from '../../cache/queries';
 import React, { useState } 				from 'react';
+
 import { useMutation, useQuery } 		from '@apollo/client';
 import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
 import { WLayout, WLHeader, WLMain, WLSide } from 'wt-frontend';
@@ -21,6 +22,7 @@ import { UpdateListField_Transaction,
 import MapTable from '../main/MapTable';
 import { WButton, WRow, WCol } from 'wt-frontend';
 import { useHistory } from "react-router-dom";
+import UpdateAccount from '../modals/UpdateAccount';
 
 const MapsTable = (props) => {
 	const history = useHistory();
@@ -46,6 +48,7 @@ const MapsTable = (props) => {
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
+	const [showUpdate, toggleShowUpdate] 	= useState(false);
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
@@ -265,6 +268,11 @@ const MapsTable = (props) => {
                 </div>
 					</ul>
 					<ul>
+					<WButton onClick = {() =>{
+				toggleShowUpdate(true);
+			}} className="user-button">
+              {props.user ? props.user.firstName : ""}
+            </WButton>
 						<NavbarOptions
 							fetchUser={props.fetchUser} 	auth={auth} 
 							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
@@ -308,6 +316,15 @@ const MapsTable = (props) => {
 			{
 				showLogin && (<Login fetchUser={props.fetchUser} reloadTodos={refetch}setShowLogin={setShowLogin} />)
 			}
+			 {showUpdate && (
+        <UpdateAccount
+          fetchUser={props.fetchUser}
+          toggleShowUpdate={toggleShowUpdate}
+		  updateListField = {updateListField}
+		  showUpdate = {showUpdate}
+		  user = {props.user}
+        />
+      )}
 
 		</WLayout>
 	);

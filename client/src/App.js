@@ -107,7 +107,8 @@ const App = () => {
 		<BrowserRouter>
 			<Switch>
 				<Redirect exact from="/" to={ {pathname: "/welcome-screen"} } />
-				{
+
+					{
 					todolists.map(map => <Route path={"/maps/" + map.name}  render={() => 
 						<MapsTable key = {map._id} user = {user} setMaps = {setMaps} createRegion = {createRegion} deleteRegion = {deleteRegion} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} map ={map} route = {[['/welcome-screen/', 'home'],['/welcome-screen/', '>'], ['/maps/', 'maps'],['/maps/', '>'], ['/maps/' + map.name, map.name]]}/>
 					}  />)
@@ -126,6 +127,7 @@ const App = () => {
 						<Maps  updateTodos = {updateTodos} printUser = {printUser} renameMap = {renameMap} tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps} deleteMap = {deleteMap} createMaps = {createMaps}  maps = {maps} route = {[['/welcome-screen/', 'home'], ['/welcome-screen/', '>'], ['/maps/', 'maps']]}/>
 					} 
 				/>
+				
 				<Route/>
 			</Switch>
 		</BrowserRouter>
