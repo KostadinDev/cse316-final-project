@@ -171,6 +171,9 @@ html, body {
 
 .table-header {
     border-bottom: 2px $text-color dotted;
+    background-color: black;
+    margin-top:50px;
+    padding-left:0px;
 }
 .map-table-header {
     border-bottom: 2px $text-color dotted;
@@ -244,4 +247,8 @@ html, body {
 }
 .red{
     color:firebrick;
+}
+
+.map-list{
+    padding-left:20px;
 }

@@ -25,9 +25,10 @@ const UpdateAccount = (props) => {
 				return;
 			}
 		}
+		
 		const { loading, error, data } = await Update({ variables: { ...input } });
-        
-        console.log(loading, error, data)
+    
+
         props.toggleShowUpdate(false);
 
 	};

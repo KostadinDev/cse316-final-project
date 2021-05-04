@@ -87,13 +87,12 @@ html {
 .table-header {
     width: calc(100% - 56px);
     box-sizing: border-box;
-    margin-left: 24px;
     margin-right: 32px;
 }
 .table-header {
     width: calc(100% - 56px);
     box-sizing: border-box;
-    margin-left: 24px;
+
     margin-right: 32px;
     display:flex;
     justify-content: center;
@@ -493,3 +492,4 @@ input{
 .button-logo{
     background-color: transparent;
 }
+

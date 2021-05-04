@@ -183,6 +183,7 @@ const Maps = (props) => {
 
 	};
 
+
 	const createNewList = async () => {
 		let list = {
 			_id: '',
@@ -207,7 +208,6 @@ const Maps = (props) => {
 	};
 
 	const updateListField = async (_id, field, value, prev) => {
-		console.log("MAIKATI")
 		console.log(_id, field, prev, value)
 		let transaction = new UpdateListField_Transaction(_id, field, prev, value, UpdateTodolistField);
 		props.tps.addTransaction(transaction);
@@ -386,6 +386,7 @@ const Maps = (props) => {
 		  updateListField = {updateListField}
 		  showUpdate = {showUpdate}
 		  user = {props.user}
+		  todolists = {todolists}
         />
       )}
 
