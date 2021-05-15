@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { WButton, WInput, WRow, WCol } from 'wt-frontend';
+import LandmarkEntry from './LandmarkEntry';
 
 const SubregionView = (props) => {
    
@@ -13,6 +14,11 @@ const SubregionView = (props) => {
     
     const [editingStatus, toggleStatusEdit] = useState(false);
     const [status, setStatus] = useState(props.map.completed) 
+
+    const [editingAssigned, toggleAssignedEdit] = useState(false);
+    const [assigned, setAssigned] = useState(props.map.assigned_to.split(" ")) 
+  
+    const [newLandmark, setNewLandmark] = useState("");
 
     const handleDescrEdit = (e) => {
         toggleDescrEdit(false);
@@ -41,13 +47,20 @@ const SubregionView = (props) => {
     const handleStatusEdit = (e) => {
         toggleStatusEdit(false);
         const newStatus = e.target.value ? e.target.value : 'No Description';
-        const prevStatus = props.maps.completed;
+        const prevStatus = props.map.completed;
         if(newStatus !== prevStatus) {
             props.editItem(props.map._id, 'completed', newStatus, prevStatus);
         }
     };
 
-
+    let handleSubmit = (event) =>{
+      event.preventDefault();
+      const newAssigned = props.map.assigned_to+ " " + event.target.children[1].value;
+      const prevAssigned = props.map.assigned_to;
+      props.editItem(props.map._id, 'assigned_to', newAssigned, prevAssigned);
+      assigned.push(event.target.children[1].value)
+      setAssigned(assigned);
+    }
     return (
       <div className="region-view">
         <div className="region-view-info">
@@ -171,35 +184,28 @@ const SubregionView = (props) => {
         </div>
         <div className="region-view-landmarks">
           <div className="region-view-data region-view-landmarks-data">
-            <div className="region-view-data-entry">
-              {props.map.landmarks
-                ? props.map.landmarks.map((landmark) => (
-                    <div className="landmarks">
-                      <WButton
-                        className="table-entry-buttons red landmarks-button"
-                        wType="texted"
-                      >
-                        <i className="material-icons">close</i>
-                      </WButton>
-                      <div>{landmark}</div>
-                    </div>
-                  ))
-                : ""}
+            <div className="region-view-landmark-entry">
+                {assigned.map((landmark) =>( <LandmarkEntry landmark = {landmark}></LandmarkEntry>))}
             </div>
           </div>
 
           <div className="region-view-landmarks-add">
+            <form onSubmit= {handleSubmit}>
             <WButton
               className=" region-view-landmarks-add-button"
               wType="texted"
+              type= 'submit'
             >
               <i className="material-icons">add_box</i>
             </WButton>
+          
 
             <input
               className="region-view-landmarks-add-input"
-              value="hello"
+              value={newLandmark}
+              onChange = {(event) =>{setNewLandmark(event.target.value)}}
             ></input>
+            </form>
           </div>
         </div>
       </div>
