@@ -21,6 +21,10 @@ const itemSchema = new Schema(
 		completed: {
 			type: Boolean,
 			required: true
+		},
+		subregions: {
+			type: [String],
+			required: true
 		}
 	}
 );

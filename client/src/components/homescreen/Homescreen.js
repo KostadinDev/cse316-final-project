@@ -17,6 +17,9 @@ import { UpdateListField_Transaction,
 	ReorderItems_Transaction, 
 	EditItem_Transaction } 				from '../../utils/jsTPS';
 
+
+import SubregionContents from '../main/SubregionContents';
+
 const Homescreen = (props) => {
 
 	const keyCombination = (e, callback) => {
@@ -38,7 +41,9 @@ const Homescreen = (props) => {
 	let SidebarData = [];
 	const [sortRule, setSortRule] = useState('unsorted'); // 1 is ascending, -1 desc
 	const [activeList, setActiveList] 		= useState({});
+	const [subregion, setSubregion] 		= useState({});
 	const [showDelete, toggleShowDelete] 	= useState(false);
+	const [showSubregion, toggleShowSubregion] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
@@ -233,8 +238,6 @@ const Homescreen = (props) => {
 		tpsRedo();
 		
 	}
-	const page = 'maps';
-
 	return (
 		<WLayout wLayout="header-lside">
 			<WLHeader>
@@ -270,16 +273,24 @@ const Homescreen = (props) => {
 			<WLMain>
 				{
 					activeList ? 
-					
 							<div className="container-secondary">
+								{!showSubregion ?
 								<MainContents
 									addItem={addItem} 				deleteItem={deleteItem}
 									editItem={editItem} 			reorderItem={reorderItem}
 									setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}
 									activeList={activeList} 		setActiveList={loadTodoList}
 									canUndo={canUndo} 				canRedo={canRedo}
-									sort={sort}
-								/>
+									sort={sort}						toggleShowSubregion = {toggleShowSubregion}
+									setSubregion = {setSubregion}
+								/>:
+								<SubregionContents
+									subregion = {subregion}
+								undo={tpsUndo} redo={tpsRedo}
+								canUndo={canUndo} 				canRedo={canRedo}>
+									
+								</SubregionContents>
+									}
 							</div>
 						:
 							<div className="container-secondary" />

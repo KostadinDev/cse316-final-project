@@ -16,6 +16,7 @@ const typeDefs = gql `
 		due_date: String!
 		assigned_to: String!
 		completed:  Boolean!
+		subregions: [String]
 	}
 	extend type Query {
 		getAllTodos: [Todolist]
@@ -50,6 +51,7 @@ const typeDefs = gql `
 		due_date: String
 		assigned_to: String
 		completed:  Boolean
+		subregions: [ItemInput]
 	}
 `;
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { WButton, WInput, WRow, WCol } from 'wt-frontend';
 
-const TableEntry = (props) => {
+const SubregionTableEntry = (props) => {
     const { data } = props;
 
     const completeStyle = data.completed ? ' complete-task' : ' incomplete-task';
@@ -144,7 +144,7 @@ const TableEntry = (props) => {
                     <WButton className="table-entry-buttons" onClick={() => props.deleteItem(data, props.index)} wType="texted">
                         <i className="material-icons">close</i>
                     </WButton>
-                    <WButton className="table-entry-buttons" onClick={() => {props.toggleShowSubregion(true);props.setSubregion(props.data); console.log(props)}} wType="texted">
+                    <WButton className="table-entry-buttons" onClick={() => props.toggleShowSubregion(true)} wType="texted">
                         <i className="material-icons">add_box</i>
                     </WButton>
                 </div>
@@ -153,4 +153,4 @@ const TableEntry = (props) => {
     );
 };
 
-export default TableEntry;
+export default SubregionTableEntry;

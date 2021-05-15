@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { WButton, WInput, WRow, WCol } from 'wt-frontend';
 
-const RegionView = (props) => {
+const SubregionView = (props) => {
    
 
 
@@ -22,16 +22,16 @@ const RegionView = (props) => {
           <div className="region-view-image">image</div>
           <div className="region-view-data">
             <div className="region-view-data-entry">
-              Region Name: <input type = 'text' value = {props.map.name}/>
+              Region Name: <input type = 'text' value = {props.map.description}/>
             </div>
             <div className="region-view-data-entry">
-            Region Name: <input type = 'text' value = {props.map.name}/>
+            Region Name: <input type = 'text' value = {props.map.description}/>
             </div>
             <div className="region-view-data-entry">
               Region Capital: <input type = 'text' value = {props.map.due_date}/>
             </div>
             <div className="region-view-data-entry">
-              Region Leader: <input type = 'text' value = {props.map.status}/>
+              Region Leader: <input type = 'text' value = {props.map.completed}/>
             </div>
             <div className="region-view-data-entry">
               # of Sub Regions: {props.map.items?props.map.items.length:'0'}
@@ -65,4 +65,4 @@ const RegionView = (props) => {
     );
 };
 
-export default RegionView;
+export default SubregionView;

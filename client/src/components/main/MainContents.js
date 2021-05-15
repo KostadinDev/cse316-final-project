@@ -24,7 +24,8 @@ const MainContents = (props) => {
             <TableContents
                 key={props.activeList._id}      activeList={props.activeList}
                 deleteItem={props.deleteItem}   reorderItem={props.reorderItem}
-                editItem={props.editItem}
+                editItem={props.editItem}       toggleShowSubregion = {props.toggleShowSubregion}
+                setSubregion = {props.setSubregion}
             />
         </div>:
           <RegionView map ={props.activeList}></RegionView>
