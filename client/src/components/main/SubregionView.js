@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { WButton, WInput, WRow, WCol } from 'wt-frontend';
 import LandmarkEntry from './LandmarkEntry';
+import EditLandmark from '../modals/EditLandmark'
 
 const SubregionView = (props) => {
    
@@ -17,6 +18,11 @@ const SubregionView = (props) => {
 
     const [editingAssigned, toggleAssignedEdit] = useState(false);
     const [assigned, setAssigned] = useState(props.map.assigned_to.split(" ")) 
+
+    
+
+    const [editLandmark, toggleEditLandmark] = useState(false);
+    const [currentlyEditingLandmark, setCurrentlyEditingLandmark] = useState("");
   
     const [newLandmark, setNewLandmark] = useState("");
 
@@ -85,6 +91,33 @@ const SubregionView = (props) => {
       
     }
 
+    const handleEditLandmark = (landmark) =>{
+      console.log(landmark);
+      setCurrentlyEditingLandmark(landmark)
+    }
+
+    const changeLandmark = (landmark, newLandmark) =>{
+      console.log(newLandmark, ' HERE')
+      for (let i =0;i<assigned.length;i++){
+        if (assigned[i] == landmark){
+          console.log(i);
+          assigned.splice(i, 1, newLandmark);
+          let newStatus = "";
+          for (let j =0;j<assigned.length;j++){
+            newStatus += assigned[i] + " ";
+          }
+          
+          let prevStatus = props.map.assigned_to;
+          if(newStatus !== prevStatus) {
+              props.editItem(props.map._id, 'assigned_to', newStatus, prevStatus);
+          }
+          setAssigned(assigned);
+          break;
+        }
+      }
+
+
+    }
 
     return (
       <div className="region-view">
@@ -128,27 +161,6 @@ const SubregionView = (props) => {
             <div className="region-view-data-entry">
               <div>Region Name: </div>{" "}
               <div>
-                {" "}
-                {editingDescr || props.map.description === "" ? (
-                  <WInput
-                    className="table-input"
-                    onBlur={handleDescrEdit}
-                    onKeyDown={(e) => {
-                      if (e.keyCode === 13) handleDescrEdit(e);
-                    }}
-                    autoFocus={true}
-                    defaultValue={description}
-                    type="text"
-                    inputClass="table-input-class"
-                  />
-                ) : (
-                  <div
-                    className="table-text"
-                    onClick={() => toggleDescrEdit(!editingDescr)}
-                  >
-                    {description}
-                  </div>
-                )}
               </div>
             </div>
             <div className="region-view-data-entry">
@@ -210,7 +222,7 @@ const SubregionView = (props) => {
         <div className="region-view-landmarks">
           <div className="region-view-data region-view-landmarks-data">
             <div className="region-view-landmark-entry">
-                {assigned.map((landmark) =>( <LandmarkEntry deleteLandmark = {deleteLandmark} landmark = {landmark}></LandmarkEntry>))}
+                {assigned.map((landmark) =>( <LandmarkEntry handleEditLandmark = {handleEditLandmark} toggleEditLandmark = {toggleEditLandmark} deleteLandmark = {deleteLandmark} landmark = {landmark}></LandmarkEntry>))}
             </div>
           </div>
 
@@ -233,7 +245,11 @@ const SubregionView = (props) => {
             </form>
           </div>
         </div>
+        {
+				editLandmark && (<EditLandmark handleClose = {toggleEditLandmark} show = {editLandmark} landmark = {currentlyEditingLandmark} changeLandmark = {changeLandmark} />)
+			}
       </div>
+      
     );
 };
 
