@@ -22,9 +22,10 @@ const SubregionContents = (props) => {
             />
             {props.subregion.name}
             <SubregionTableContents
+            editItem={props.editItem}
             />
         </div>:
-          <SubregionView map ={props.subregion}></SubregionView>
+          <SubregionView editItem={props.editItem} map ={props.subregion}></SubregionView>
         }
 
         </div>
