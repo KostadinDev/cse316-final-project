@@ -17,36 +17,47 @@ const LandmarkEntry = (props) => {
         // }
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+       // console.log(e.target.firstChild.firstChild.firstChild.value);
+        props.deleteLandmark(e.target.firstChild.firstChild.firstChild.value)
+    }
 
     return (
-        <WRow className='table-entry'>
+      <form
+        onSubmit={handleSubmit}
+      >
+        <WRow className="table-entry">
+          <WCol size="10">
+            {edit? (
+              <WInput
+                className="table-input"
+                onBlur={handleLandmarkEdit}
+                type="text"
+                autoFocus={true}
+                defaultValue={props.landmark}
+                type="text"
+                /*wType="outlined" barAnimation="solid" */ inputclass="table-input-class"
+              />
+            ) : (
+              <input className={` table-text`}  value = {props.landmark}/>
+                
 
-            <WCol size="10">
-                {
-                    props.landmark === ''
-                        ? <WInput
-                            className='table-input' onBlur={handleLandmarkEdit}
-                            type = 'text'
-                            autoFocus={true} defaultValue={props.landmark} type='text'
-                            /*wType="outlined" barAnimation="solid" */inputclass="table-input-class"
-                        />
-                        : <div className={` table-text`}
-                            onClick={() => toggleEdit(!edit)}
-                        >{props.landmark}
-                        </div>
-                }
-            </WCol>
-            <WCol size="2">
-                <div className='button-group'>
-                    <WButton className="table-entry-buttons" onClick={() =>{}} wType="texted">
-                        <i className="material-icons">close</i>
-                    </WButton>
-                    <WButton className="table-entry-buttons" onClick={() => {}} wType="texted">
-                        <i className="material-icons">add_box</i>
-                    </WButton>
-                </div>
-            </WCol>
+            )}
+          </WCol>
+          <WCol size="2">
+            <div className="button-group">
+              <WButton
+                className="table-entry-buttons"
+                onClick="submit"
+                wType="texted"
+              >
+                <i className="material-icons">close</i>
+              </WButton>
+            </div>
+          </WCol>
         </WRow>
+      </form>
     );
 };
 

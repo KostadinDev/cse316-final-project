@@ -61,6 +61,31 @@ const SubregionView = (props) => {
       assigned.push(event.target.children[1].value)
       setAssigned(assigned);
     }
+
+    let deleteLandmark = (landmark) =>{
+
+      for (let i =0;i<assigned.length;i++){
+        if (assigned[i] == landmark){
+          console.log(i);
+          assigned.splice(i, 1);
+          let newStatus = "";
+          for (let j =0;j<assigned.length;j++){
+            newStatus += assigned[i] + " ";
+          }
+          
+          let prevStatus = props.map.assigned_to;
+          if(newStatus !== prevStatus) {
+              props.editItem(props.map._id, 'assigned_to', newStatus, prevStatus);
+          }
+          setAssigned(assigned);
+          break;
+        }
+      }
+ 
+      
+    }
+
+
     return (
       <div className="region-view">
         <div className="region-view-info">
@@ -185,7 +210,7 @@ const SubregionView = (props) => {
         <div className="region-view-landmarks">
           <div className="region-view-data region-view-landmarks-data">
             <div className="region-view-landmark-entry">
-                {assigned.map((landmark) =>( <LandmarkEntry landmark = {landmark}></LandmarkEntry>))}
+                {assigned.map((landmark) =>( <LandmarkEntry deleteLandmark = {deleteLandmark} landmark = {landmark}></LandmarkEntry>))}
             </div>
           </div>
 
