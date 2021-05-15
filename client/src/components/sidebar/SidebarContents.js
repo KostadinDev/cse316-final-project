@@ -5,7 +5,14 @@ import SidebarList      from './SidebarList';
 const SidebarContents = (props) => {
     return (
         <>
-            Hello
+            <SidebarHeader 
+                auth={props.auth} createNewList={props.createNewList} activeid={props.activeid}
+            />
+            <SidebarList
+                activeid={props.activeid} handleSetActive={props.handleSetActive}
+                listIDs={props.listIDs} createNewList={props.createNewList}
+                updateListField={props.updateListField}
+            />
         </>
     );
 };

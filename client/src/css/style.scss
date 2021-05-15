@@ -103,7 +103,6 @@ html, body {
     font-family: "Roboto Mono", monospace;
     text-transform: uppercase;
     font-weight: bold;
-    background-color: transparent;
 } 
 
 .modal-error {
@@ -171,12 +170,6 @@ html, body {
 
 .table-header {
     border-bottom: 2px $text-color dotted;
-    background-color: black;
-    margin-top:50px;
-    padding-left:0px;
-}
-.map-table-header {
-    border-bottom: 2px $text-color dotted;
 }
 
 .table-header-section {
@@ -238,17 +231,4 @@ html, body {
 .table-entry-buttons-disabled {
     color: var(--warm-black);
     cursor: default;
-}
-
-
-.link{
-    color:var(--light-blue);
-    padding-left:10px;
-}
-.red{
-    color:firebrick;
-}
-
-.map-list{
-    padding-left:20px;
 }

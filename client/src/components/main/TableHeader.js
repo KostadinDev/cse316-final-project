@@ -24,22 +24,26 @@ const TableHeader = (props) => {
 
     return (
         <WRow className="table-header">
-            <WCol size="3">
-                <WButton onClick={props.disabled ? () => {} : () => props.sort('task') } className='table-header-section' wType="texted" >Task</WButton>
+            <WCol size="2">
+                <WButton onClick={props.disabled ? () => {} : () => props.sort('task') } className='table-header-section' wType="texted" >Name</WButton>
             </WCol>
 
             <WCol size="2">
-                <WButton onClick={props.disabled ? () => {} : () => props.sort('due_date') } className='table-header-section' wType="texted">Due Date</WButton>
+                <WButton onClick={props.disabled ? () => {} : () => props.sort('due_date') } className='table-header-section' wType="texted">Capital</WButton>
             </WCol>
 
             <WCol size="2">
-                <WButton onClick={props.disabled ? () => {} : () => props.sort('status') } className='table-header-section' wType="texted" >Status</WButton>
+                <WButton onClick={props.disabled ? () => {} : () => props.sort('status') } className='table-header-section' wType="texted" >Leader</WButton>
             </WCol>
             <WCol size="2">
-                <WButton onClick={props.disabled ? () => {} : () => props.sort('assigned_to') } className='table-header-section' wType="texted" >Assigned To</WButton>
+                <WButton onClick={props.disabled ? () => {} : () => props.sort('assigned_to') } className='table-header-section' wType="texted" >Flag</WButton>
+            </WCol>
+            <WCol size="2">
+                <WButton onClick={props.disabled ? () => {} : () => props.sort('assigned_to') } className='table-header-section' wType="texted" >Landmarks</WButton>
             </WCol>
 
-            <WCol size="3">
+
+            <WCol size="2">
                 <div className="table-header-buttons">
                     <WButton {...undoOptions}>
                             <i className="material-icons">undo</i>

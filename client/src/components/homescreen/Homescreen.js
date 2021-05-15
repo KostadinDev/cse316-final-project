@@ -2,7 +2,6 @@ import Logo 							from '../navbar/Logo';
 import Login 							from '../modals/Login';
 import Delete 							from '../modals/Delete';
 import MainContents 					from '../main/MainContents';
-import MainScreen 						from '../main/MainScreen';
 import CreateAccount 					from '../modals/CreateAccount';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import * as mutations 					from '../../cache/mutations';
@@ -17,13 +16,9 @@ import { UpdateListField_Transaction,
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction, 
 	EditItem_Transaction } 				from '../../utils/jsTPS';
-import { WButton } 	from 'wt-frontend';
-import { useHistory } from "react-router-dom";
-import UpdateAccount from '../modals/UpdateAccount';
-
 
 const Homescreen = (props) => {
-	const history = useHistory();
+
 	const keyCombination = (e, callback) => {
 		if(e.key === 'z' && e.ctrlKey) {
 			if(props.tps.hasTransactionToUndo()) {
@@ -46,7 +41,6 @@ const Homescreen = (props) => {
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
-	const [showUpdate, toggleShowUpdate] 	= useState(false);
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
@@ -191,6 +185,8 @@ const Homescreen = (props) => {
 		if(data) {
 			loadTodoList(data.addTodolist);
 		} 
+
+		console.log(todolists)
 		
 	};
 	const deleteList = async (_id) => {
@@ -237,6 +233,7 @@ const Homescreen = (props) => {
 		tpsRedo();
 		
 	}
+	const page = 'maps';
 
 	return (
 		<WLayout wLayout="header-lside">
@@ -248,18 +245,6 @@ const Homescreen = (props) => {
 						</WNavItem>
 					</ul>
 					<ul>
-					{props.route.map((route) => (
-							<WButton className='route' onClick = {() => {history.push(route[0])}}>
-								{route[1]}
-							</WButton>
-						))}
-					</ul>
-					<ul>
-					<WButton onClick = {() =>{
-				toggleShowUpdate(true);
-			}} className="user-button">
-              {props.user ? props.user.firstName : ""}
-            </WButton>
 						<NavbarOptions
 							fetchUser={props.fetchUser} 	auth={auth} 
 							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
@@ -268,9 +253,21 @@ const Homescreen = (props) => {
 					</ul>
 				</WNavbar>
 			</WLHeader>
-			
-	
-			 <WLMain>
+			{!activeList._id?	<WLSide side="left">
+				<WSidebar>
+					{
+						activeList ? 
+							<SidebarContents
+								listIDs={SidebarData} 				activeid={activeList._id} auth={auth}
+								handleSetActive={handleSetActive} 	createNewList={createNewList}
+								updateListField={updateListField} 	key={activeList._id}
+							/>
+							:
+							<></>
+					}
+				</WSidebar>
+			</WLSide>:
+			<WLMain>
 				{
 					activeList ? 
 					
@@ -289,28 +286,9 @@ const Homescreen = (props) => {
 				}
 
 			</WLMain>
-				<WLMain>
-				{
-					activeList ? 
-					
-							<div className="container-secondary">
-								<MainScreen
-									addItem={addItem} 				deleteItem={deleteItem}
-									editItem={editItem} 			reorderItem={reorderItem}
-									setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}
-									activeList={activeList} 		setActiveList={loadTodoList}
-									canUndo={canUndo} 				canRedo={canRedo}
-									sort={sort}
-								/>
-							</div>
-						:
-							<div className="container-secondary" />
-				}
 
-			</WLMain>
+			}
 		
-			
-
 			{
 				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} setShowDelete={setShowDelete} />)
 			}
@@ -322,15 +300,6 @@ const Homescreen = (props) => {
 			{
 				showLogin && (<Login fetchUser={props.fetchUser} reloadTodos={refetch}setShowLogin={setShowLogin} />)
 			}
-			      {showUpdate && (
-        <UpdateAccount
-          fetchUser={props.fetchUser}
-          toggleShowUpdate={toggleShowUpdate}
-		  updateListField = {updateListField}
-		  showUpdate = {showUpdate}
-		  user = {props.user}
-        />
-      )}
 
 		</WLayout>
 	);
