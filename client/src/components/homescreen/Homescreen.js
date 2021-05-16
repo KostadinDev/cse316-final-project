@@ -191,7 +191,6 @@ const Homescreen = (props) => {
 			loadTodoList(data.addTodolist);
 		} 
 
-		console.log(todolists)
 		
 	};
 	const deleteList = async (_id) => {
@@ -288,7 +287,8 @@ const Homescreen = (props) => {
 									subregion = {subregion}
 									editItem={editItem}
 								undo={tpsUndo} redo={tpsRedo}
-								canUndo={canUndo} 				canRedo={canRedo}>
+								canUndo={canUndo} 
+								current = {activeList}				canRedo={canRedo}>
 									
 								</SubregionContents>
 									}

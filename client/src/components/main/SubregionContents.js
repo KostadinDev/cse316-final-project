@@ -6,13 +6,41 @@ import { WButton, WInput, WRow, WCol } from 'wt-frontend';
 
 const SubregionContents = (props) => {
     const [view, setView] = useState(0)
-    console.log("SUBREGION", props.subregion)
+    const [subregion, setSubregion] = useState(props.subregion)
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
     return (
         <div className = 'main-contents'>
               <WButton onClick = {() => {
         setView(view+1);
         
         }}>Change View</WButton>
+            <WButton onClick = {() => {
+                 //setView(view+1);
+        for (let i = 0; i< props.current.items.length;i++){
+            console.log(props.current.items[i].description, props.subregion.description)
+            if (props.current.items[i]._id === subregion._id && i !=0){
+                setSubregion(props.current.items[i-1]);
+                setView(view+1);
+                break;
+            }
+        }
+        
+        }}>Previous </WButton>
+            <WButton onClick = {() => {
+                 //setView(view+1);
+               for (let i = 0; i< props.current.items.length;i++){
+                if (props.current.items[i]._id === subregion._id && i !=props.current.items.length-1){
+                    setSubregion(props.current.items[i+1]);
+                    setView(view+1);
+                    break;
+                }
+            }
+        
+        }}>Next</WButton>
 
             {view%2 == 0? 
         <div className='table ' >
@@ -20,12 +48,12 @@ const SubregionContents = (props) => {
                 undo={props.undo} redo={props.redo}     canUndo={props.canUndo} 
                 canRedo={props.canRedo}               
             />
-            {props.subregion.name}
+            {subregion.name}
             <SubregionTableContents
             editItem={props.editItem}
             />
         </div>:
-          <SubregionView editItem={props.editItem} map ={props.subregion}></SubregionView>
+          <SubregionView editItem={props.editItem} map ={subregion}></SubregionView>
         }
 
         </div>
