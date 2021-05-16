@@ -19,6 +19,7 @@ import { UpdateListField_Transaction,
 
 
 import SubregionContents from '../main/SubregionContents';
+import ChangeParent from '../modals/ChangeParent';
 
 const Homescreen = (props) => {
 
@@ -46,8 +47,12 @@ const Homescreen = (props) => {
 	const [showSubregion, toggleShowSubregion] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
+	const [showChangeParent, toggleShowChangeParent] 		= useState(false);
+	const [itemChangeParent, setItemChangeParent] = useState({})
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
+
+	const [showVerify, toggleShowVerify] 	= useState(false);
 
 	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
 
@@ -137,6 +142,7 @@ const Homescreen = (props) => {
 		let opcode = 1;
 		let itemID = newItem._id;
 		let listID = activeList._id;
+		console.log("DOES IT GET HERE???")
 		let transaction = new UpdateListItems_Transaction(listID, itemID, newItem, opcode, AddTodoItem, DeleteTodoItem);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
@@ -158,6 +164,59 @@ const Homescreen = (props) => {
 		tpsRedo();
 
 	};
+
+
+	// const addItemIndependent = async (listID,item) => {
+	// 	const newItem = {
+	// 		_id: item._id,
+	// 		description: item.description,
+	// 		due_date:item.due_date,
+	// 		assigned_to: item.assigned_to,
+	// 		completed: item.completed
+	// 	};
+	// 	let opcode = 1;
+	// 	let itemID = newItem._id;
+	// 	console.log(newItem, 'ADDING THIS TIME to ', listID)
+	// 	let transaction = new UpdateListItems_Transaction(listID, itemID, newItem, opcode, AddTodoItem, DeleteTodoItem);
+	// 	props.tps.addTransaction(transaction);
+	// 	tpsRedo();
+	// };
+
+
+		const addItemIndependent = async(listID, item) => {
+		const newItem = {
+			_id: item._id,
+			description: item.description,
+			due_date: item.due_date,
+			assigned_to: item.assigned_to,
+			completed: item.completed
+		};
+		let opcode = 1;
+		let itemID = newItem._id;
+		let transaction = new UpdateListItems_Transaction(listID, itemID, newItem, opcode, AddTodoItem, DeleteTodoItem);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
+		console.log("ZAKADE BURZASH?")
+	};
+
+
+	 const deleteItemIndependent = async (listID, item, index) => {
+		console.log("KVO IMA BE?")
+		let itemID = item._id;
+		let opcode = 0;
+		let itemToDelete = {
+			_id: item._id,
+			description: item.description,
+			due_date: item.due_date,
+			assigned_to: item.assigned_to,
+			completed: item.completed
+		}
+		let transaction = new UpdateListItems_Transaction(listID, itemID, itemToDelete, opcode, AddTodoItem, DeleteTodoItem, index);
+		props.tps.addTransaction(transaction);
+		tpsRedo();
+
+	};
+
 
 	const editItem = async (itemID, field, value, prev) => {
 		let flag = 0;
@@ -237,6 +296,35 @@ const Homescreen = (props) => {
 		tpsRedo();
 		
 	}
+
+	const handleChangeParentAdd = (oldList, newList, item) =>{
+			// if (newList._id != oldList._id){
+			// 	newList.items.push(item);
+			// 	for (let i =0;i<oldList.items.length;i++){
+			// 		if (oldList.items[i]._id == item._id){
+			// 			oldList.items.splice(i, 1);
+			// 		}
+			// 	}
+			// }
+		addItemIndependent(newList._id, item);
+		
+	
+	}
+
+	const handleChangeParentDelete = (oldList, newList, item) =>{
+		// if (newList._id != oldList._id){
+		// 	newList.items.push(item);
+		// 	for (let i =0;i<oldList.items.length;i++){
+		// 		if (oldList.items[i]._id == item._id){
+		// 			oldList.items.splice(i, 1);
+		// 		}
+		// 	}
+		// }
+	//addItemIndependent(newList._id, item);
+	
+	deleteItemIndependent(oldList._id, item, 0);
+}
+
 	return (
 		<WLayout wLayout="header-lside">
 			<WLHeader>
@@ -288,8 +376,11 @@ const Homescreen = (props) => {
 									editItem={editItem}
 								undo={tpsUndo} redo={tpsRedo}
 								showSubregion ={toggleShowSubregion}
+								toggleShowChangeParent = {toggleShowChangeParent}
+								setItemChangeParent = {setItemChangeParent}
 								canUndo={canUndo} 
-								current = {activeList}				canRedo={canRedo}>
+								current = {activeList}	
+											canRedo={canRedo}>
 									
 								</SubregionContents>
 									}
@@ -312,6 +403,10 @@ const Homescreen = (props) => {
 
 			{
 				showLogin && (<Login fetchUser={props.fetchUser} reloadTodos={refetch}setShowLogin={setShowLogin} />)
+			}
+
+			{
+				showChangeParent && (<div>hello<ChangeParent todolists = {todolists} show = {showChangeParent} item = {itemChangeParent} toggleShow ={toggleShowChangeParent} handleChangeParentAdd = {handleChangeParentAdd} handleChangeParentDelete = {handleChangeParentDelete} setActiveList = {setActiveList} /></div>)
 			}
 
 		</WLayout>

@@ -350,3 +350,8 @@ html {
   .display-none {
     display: none;
   }
+  .change-parent{
+      display:flex;
+      flex-direction: column;
+      
+  }

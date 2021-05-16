@@ -162,7 +162,7 @@ const SubregionView = (props) => {
               <div>Region Parent: </div>{" "}
               <div>
                 <WButton onClick = {() => {props.showSubregion(false)}}> {props.current.name}</WButton>
-               
+                <WButton onClick = {() => {props.toggleShowChangeParent(true); props.setItemChangeParent(props.map)}}>Change Parent</WButton>
               </div>
             </div>
             <div className="region-view-data-entry">
