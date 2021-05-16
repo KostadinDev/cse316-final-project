@@ -414,3 +414,25 @@ height:500px;
     color:white;
 
 }
+
+.nav-entry{
+    display:flex;
+    flex-direction: row;
+    justify-content:space-between
+}
+
+.nav-entry-map{
+    width: 80%;
+}
+
+.nav-bar-button{
+    background-color: transparent;
+    color:white;
+}
+
+
+.nav-bar-entry-container{
+    display:flex;   
+    align-items: center;
+    
+}

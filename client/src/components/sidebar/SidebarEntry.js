@@ -1,5 +1,6 @@
 import React, { useState }  from 'react';
 import { WNavItem, WInput } from 'wt-frontend';
+import WButton from 'wt-frontend/build/components/wbutton/WButton';
 
 const SidebarEntry = (props) => {
     const [editing, toggleEditing] = useState(false);
@@ -18,7 +19,8 @@ const SidebarEntry = (props) => {
 
     const entryStyle = props._id === props.activeid ? 'list-item-active' : 'list-item ';
     
-    return (
+    return (<div className ='nav-entry'>
+        <div className='nav-entry-map'>
         <WNavItem 
             className={entryStyle} onDoubleClick={handleEditing} 
             onClick={() => { props.handleSetActive(props._id) }} 
@@ -32,7 +34,17 @@ const SidebarEntry = (props) => {
                                 {props.name}
                             </div>
             }
+           
+            
         </WNavItem>
+        </div>
+        <div className = 'nav-bar-entry-container'>
+            <WButton className = 'nav-bar-button' onClick = {() => {
+                props.setShowDelete(props._id)}}>
+            <i className="material-icons">close</i>
+            </WButton>
+            </div>
+        </div>
     );
 };
 

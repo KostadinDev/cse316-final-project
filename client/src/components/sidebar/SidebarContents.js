@@ -16,6 +16,7 @@ const SidebarContents = (props) => {
                 activeid={props.activeid} handleSetActive={props.handleSetActive}
                 listIDs={props.listIDs} createNewList={props.createNewList}
                 updateListField={props.updateListField}
+                setShowDelete = {props.setShowDelete}
             />
             </div>
             <div className = 'maps-inner-half maps-inner-image'>

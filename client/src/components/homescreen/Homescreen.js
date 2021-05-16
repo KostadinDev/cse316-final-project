@@ -47,6 +47,7 @@ const Homescreen = (props) => {
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showSubregion, toggleShowSubregion] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
+	const [listToDelete, setListToDelete] = useState("");
 	const [showCreate, toggleShowCreate] 	= useState(false);
 	const [showChangeParent, toggleShowChangeParent] 		= useState(false);
 	const [itemChangeParent, setItemChangeParent] = useState({})
@@ -290,9 +291,10 @@ const Homescreen = (props) => {
 		toggleShowCreate(!showCreate);
 	};
 
-	const setShowDelete = () => {
+	const setShowDelete = (id) => {
 		toggleShowCreate(false);
 		toggleShowLogin(false);
+		setListToDelete(id);
 		toggleShowDelete(!showDelete)
 	};
 	
@@ -367,6 +369,7 @@ const Homescreen = (props) => {
                   handleSetActive={handleSetActive}
                   createNewList={createNewList}
                   updateListField={updateListField}
+				  setShowDelete = {setShowDelete}
                   key={activeList._id}
                 />
               ) : (
@@ -422,7 +425,7 @@ const Homescreen = (props) => {
       {showDelete && (
         <Delete
           deleteList={deleteList}
-          activeid={activeList._id}
+          activeid={listToDelete}
           setShowDelete={setShowDelete}
         />
       )}
