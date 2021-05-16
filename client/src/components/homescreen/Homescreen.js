@@ -57,7 +57,15 @@ const Homescreen = (props) => {
 
 	const [homescreen, toggleHomescreen] = useState(true)
 
-	const [links, setLinks] = useState([])
+
+	const unload = () =>{
+		setActiveList({});
+		toggleHomescreen(false);
+		toggleShowSubregion(false)
+		setLinks([['maps',unload]])
+	}
+
+	const [links, setLinks] = useState([['maps',unload]])
 
 
 	const [targetDelete, setTargetDelete] = useState([]);
@@ -104,6 +112,9 @@ const Homescreen = (props) => {
 		setCanUndo(props.tps.hasTransactionToUndo());
 		setCanRedo(props.tps.hasTransactionToRedo());
 		setActiveList(list);
+		setLinks([['maps', unload], [list.name,() => {reloadList(); toggleShowSubregion(false); console.log("hello?", links);
+		setLinks([['maps', unload],[list.name, () => {}]]);
+	}]])
 
 	}
 
@@ -123,7 +134,7 @@ const Homescreen = (props) => {
 	const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
 
 
-
+	
 	
 	const tpsUndo = async () => {
 		const ret = await props.tps.undoTransaction();
@@ -352,7 +363,7 @@ const Homescreen = (props) => {
             </WNavItem>
           </ul>
 		  <ul>
-			  hello
+			  {links?links.map((link) => (<WButton className = 'links' onClick={link[1]}>{link[0]}</WButton>)):""}
 		  </ul>
           <ul>
             <NavbarOptions
@@ -410,6 +421,8 @@ const Homescreen = (props) => {
                     setSubregion={setSubregion}
                     toggleShowVerify={toggleShowVerify}
                     handleVerify={handleVerify}
+					links = {links}
+					setLinks = {setLinks}
                   />
                 ) : (
                   <SubregionContents

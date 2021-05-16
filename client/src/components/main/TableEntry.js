@@ -147,7 +147,7 @@ const TableEntry = (props) => {
                         }} wType="texted">
                         <i className="material-icons">close</i>
                     </WButton>
-                    <WButton className="table-entry-buttons" onClick={() => {props.toggleShowSubregion(true);props.setSubregion(props.data); console.log(props)}} wType="texted">
+                    <WButton className="table-entry-buttons" onClick={() => {props.toggleShowSubregion(true);props.setSubregion(props.data); props.links.push([props.data.description, () => {}]);props.setLinks(props.links)}} wType="texted">
                         <i className="material-icons">add_box</i>
                     </WButton>
                 </div>

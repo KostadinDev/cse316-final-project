@@ -28,6 +28,8 @@ const MainContents = (props) => {
                 setSubregion = {props.setSubregion}
                 toggleShowVerify = {props.toggleShowVerify}
                 handleVerify = {props.handleVerify}
+                links = {props.links}
+                setLinks = {props.setLinks}
             />
         </div>:
           <RegionView map ={props.activeList}></RegionView>
