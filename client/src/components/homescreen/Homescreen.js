@@ -21,6 +21,7 @@ import { UpdateListField_Transaction,
 import SubregionContents from '../main/SubregionContents';
 import ChangeParent from '../modals/ChangeParent';
 import Verify from '../modals/Verify';
+import WButton from 'wt-frontend/build/components/wbutton/WButton';
 
 const Homescreen = (props) => {
 
@@ -56,6 +57,8 @@ const Homescreen = (props) => {
 
 	const [homescreen, toggleHomescreen] = useState(true)
 
+	const [links, setLinks] = useState([])
+
 
 	const [targetDelete, setTargetDelete] = useState([]);
 	const [showVerify, toggleShowVerify] 	= useState(false);
@@ -83,7 +86,9 @@ const Homescreen = (props) => {
 		}
 	}
 
+	const goHome = () =>{
 
+	}
 	
 	// NOTE: might not need to be async
 	const reloadList = async () => {
@@ -116,6 +121,7 @@ const Homescreen = (props) => {
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM, mutationOptions);
 	const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
 	const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
+
 
 
 	
@@ -342,9 +348,12 @@ const Homescreen = (props) => {
         <WNavbar color="colored">
           <ul>
             <WNavItem>
-              <Logo className="logo" />
+              <Logo className="logo" toggleHomescreen ={toggleHomescreen} />
             </WNavItem>
           </ul>
+		  <ul>
+			  hello
+		  </ul>
           <ul>
             <NavbarOptions
               fetchUser={props.fetchUser}
@@ -357,7 +366,9 @@ const Homescreen = (props) => {
           </ul>
         </WNavbar>
       </WLHeader>
-      <div className="what-the-fuck">
+	  {homescreen?
+	 	<div className='homescreen-container'><WButton className='homescreen-container-button' onClick = {() => {toggleHomescreen(false)}}>Welcome to The World Data Mapper</WButton></div> 
+	  :<div className="what-the-fuck">
         {!activeList._id ? (
     
             <WSidebar className='maps'>
@@ -420,7 +431,8 @@ const Homescreen = (props) => {
             )}
           </WLMain>
         )}
-      </div>
+      </div>}
+      
 
       {showDelete && (
         <Delete

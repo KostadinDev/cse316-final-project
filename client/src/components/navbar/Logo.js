@@ -1,10 +1,11 @@
 import React from 'react';
+import WButton from 'wt-frontend/build/components/wbutton/WButton';
 
 const Logo = (props) => {
     return (
-        <div className='logo'>
+        <WButton className='logo' onClick = {() => {props.toggleHomescreen(true)}}>
             The World Data Mapper
-        </div>
+        </WButton>
     );
 };
 
