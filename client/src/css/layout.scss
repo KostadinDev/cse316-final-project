@@ -332,26 +332,85 @@ html {
     background: rgba(0, 0, 0, 0.6);
   }
   
-  .modal-main {
-    position:fixed;
-    background: white;
-    width: 400px;
-    height: 250px;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    background-color: var(--darkblue-gray); 
-  }
-  
-  .display-block {
-    display: block;
-  }
-  
-  .display-none {
-    display: none;
-  }
-  .change-parent{
-      display:flex;
-      flex-direction: column;
-      
-  }
+.modal-main {
+position:fixed;
+background: white;
+width: 400px;
+height: 250px;
+top:50%;
+left:50%;
+transform: translate(-50%,-50%);
+background-color: var(--darkblue-gray); 
+}
+
+.display-block {
+display: block;
+}
+
+.display-none {
+display: none;
+}
+.change-parent{
+    display:flex;
+    flex-direction: column;
+
+}
+
+.homescreen-not{
+    width: 1000px;
+    height: 1000px;
+}
+
+.outside-container{
+    height: 100%;
+    width: 100%;
+}
+
+.overall{
+    width: 100%;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.what-the-fuck{
+padding-top:50px;
+width: 100%;
+display:flex;
+justify-content: center;
+
+}
+.header{
+width: 100%;
+}
+
+.maps{
+width:50%;
+height:500px;
+}
+
+.maps-inner{
+    width: 100;
+    display:flex;
+    height: 80%;
+}
+
+.maps-inner-half{
+    width: 45%;
+    padding:10px;
+}
+
+.maps-inner-image{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.create-map-button{
+    width: 100%;
+    background-color: firebrick;
+    color:white;
+
+}

@@ -28,7 +28,7 @@ const TableContents = (props) => {
             </div>
             : <div className='container-primary' >
                 {
-                    props.activeList._id ? <h2 className="nothing-msg"> Nothing to do!</h2> : <></> 
+                    props.activeList._id ? <h2 className="nothing-msg"> No Regions!</h2> : <></> 
                 }               
                 
             </div>

@@ -116,6 +116,9 @@ html, body {
 
 .sidebar-header {
     border-bottom: 2px dotted;
+    background-color: black;
+    display:flex;
+    justify-content: center;
 }
 
 .sidebar-buttons-disabled {
@@ -130,6 +133,8 @@ html, body {
     font-weight: bold;
     padding: 0;
     color: $text-color;
+    background-color: black;
+
 }
 
 .table-entries {

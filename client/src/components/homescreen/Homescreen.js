@@ -53,6 +53,8 @@ const Homescreen = (props) => {
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
+	const [homescreen, toggleHomescreen] = useState(true)
+
 
 	const [targetDelete, setTargetDelete] = useState([]);
 	const [showVerify, toggleShowVerify] 	= useState(false);
@@ -253,9 +255,9 @@ const Homescreen = (props) => {
 			sortDirection: 1
 		}
 		const { data } = await AddTodolist({ variables: { todolist: list }, refetchQueries: [{ query: GET_DB_TODOS }] });
-		if(data) {
-			loadTodoList(data.addTodolist);
-		} 
+		// if(data) {
+		// 	loadTodoList(data.addTodolist);
+		// } 
 
 		
 	};
@@ -333,97 +335,141 @@ const Homescreen = (props) => {
 }
 
 	return (
-		<WLayout wLayout="header-lside">
-			<WLHeader>
-				<WNavbar color="colored">
-					<ul>
-						<WNavItem>
-							<Logo className='logo' />
-						</WNavItem>
-					</ul>
-					<ul>
-						<NavbarOptions
-							fetchUser={props.fetchUser} 	auth={auth} 
-							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
-							reloadTodos={refetch} 			setActiveList={loadTodoList}
-						/>
-					</ul>
-				</WNavbar>
-			</WLHeader>
-			{!activeList._id?	<WLSide side="left">
-				<WSidebar>
-					{
-						activeList ? 
-							<SidebarContents
-								listIDs={SidebarData} 				activeid={activeList._id} auth={auth}
-								handleSetActive={handleSetActive} 	createNewList={createNewList}
-								updateListField={updateListField} 	key={activeList._id}
-							/>
-							:
-							<></>
-					}
-				</WSidebar>
-			</WLSide>:
-			<WLMain>
-				{
-					activeList ? 
-							<div className="container-secondary">
-								{!showSubregion ?
-								<MainContents
-									addItem={addItem} 				deleteItem={deleteItem}
-									editItem={editItem} 			reorderItem={reorderItem}
-									setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}
-									activeList={activeList} 		setActiveList={loadTodoList}
-									canUndo={canUndo} 				canRedo={canRedo}
-									sort={sort}						toggleShowSubregion = {toggleShowSubregion}
-									setSubregion = {setSubregion}
-									toggleShowVerify = {toggleShowVerify}
-									handleVerify = {handleVerify}
-								/>:
-								<SubregionContents
-									subregion = {subregion}
-									editItem={editItem}
-								undo={tpsUndo} redo={tpsRedo}
-								showSubregion ={toggleShowSubregion}
-								toggleShowChangeParent = {toggleShowChangeParent}
-								setItemChangeParent = {setItemChangeParent}
-								canUndo={canUndo} 
-								current = {activeList}	
-											canRedo={canRedo}>
-									
-								</SubregionContents>
-									}
-							</div>
-						:
-							<div className="container-secondary" />
-				}
+    <div className="overall">
+      <WLHeader className="header">
+        <WNavbar color="colored">
+          <ul>
+            <WNavItem>
+              <Logo className="logo" />
+            </WNavItem>
+          </ul>
+          <ul>
+            <NavbarOptions
+              fetchUser={props.fetchUser}
+              auth={auth}
+              setShowCreate={setShowCreate}
+              setShowLogin={setShowLogin}
+              reloadTodos={refetch}
+              setActiveList={loadTodoList}
+            />
+          </ul>
+        </WNavbar>
+      </WLHeader>
+      <div className="what-the-fuck">
+        {!activeList._id ? (
+    
+            <WSidebar className='maps'>
+              {activeList ? (
+                <SidebarContents
+                  listIDs={SidebarData}
+                  activeid={activeList._id}
+                  auth={auth}
+                  handleSetActive={handleSetActive}
+                  createNewList={createNewList}
+                  updateListField={updateListField}
+                  key={activeList._id}
+                />
+              ) : (
+                <></>
+              )}
+            </WSidebar>
+         
+        ) : (
+          <WLMain>
+            {activeList ? (
+              <div className="container-secondary">
+                {!showSubregion ? (
+                  <MainContents
+                    addItem={addItem}
+                    deleteItem={deleteItem}
+                    editItem={editItem}
+                    reorderItem={reorderItem}
+                    setShowDelete={setShowDelete}
+                    undo={tpsUndo}
+                    redo={tpsRedo}
+                    activeList={activeList}
+                    setActiveList={loadTodoList}
+                    canUndo={canUndo}
+                    canRedo={canRedo}
+                    sort={sort}
+                    toggleShowSubregion={toggleShowSubregion}
+                    setSubregion={setSubregion}
+                    toggleShowVerify={toggleShowVerify}
+                    handleVerify={handleVerify}
+                  />
+                ) : (
+                  <SubregionContents
+                    subregion={subregion}
+                    editItem={editItem}
+                    undo={tpsUndo}
+                    redo={tpsRedo}
+                    showSubregion={toggleShowSubregion}
+                    toggleShowChangeParent={toggleShowChangeParent}
+                    setItemChangeParent={setItemChangeParent}
+                    canUndo={canUndo}
+                    current={activeList}
+                    canRedo={canRedo}
+                  ></SubregionContents>
+                )}
+              </div>
+            ) : (
+              <div className="container-secondary" />
+            )}
+          </WLMain>
+        )}
+      </div>
 
-			</WLMain>
+      {showDelete && (
+        <Delete
+          deleteList={deleteList}
+          activeid={activeList._id}
+          setShowDelete={setShowDelete}
+        />
+      )}
 
-			}
-		
-			{
-				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} setShowDelete={setShowDelete} />)
-			}
+      {showCreate && (
+        <CreateAccount
+          fetchUser={props.fetchUser}
+          setShowCreate={setShowCreate}
+        />
+      )}
 
-			{
-				showCreate && (<CreateAccount fetchUser={props.fetchUser} setShowCreate={setShowCreate} />)
-			}
+      {showLogin && (
+        <Login
+          fetchUser={props.fetchUser}
+          reloadTodos={refetch}
+          setShowLogin={setShowLogin}
+        />
+      )}
 
-			{
-				showLogin && (<Login fetchUser={props.fetchUser} reloadTodos={refetch}setShowLogin={setShowLogin} />)
-			}
+      {showChangeParent && (
+        <div>
+          hello
+          <ChangeParent
+            todolists={todolists}
+            show={showChangeParent}
+            item={itemChangeParent}
+            toggleShow={toggleShowChangeParent}
+            handleChangeParentAdd={handleChangeParentAdd}
+            handleChangeParentDelete={handleChangeParentDelete}
+            setActiveList={setActiveList}
+          />
+        </div>
+      )}
 
-			{
-				showChangeParent && (<div>hello<ChangeParent todolists = {todolists} show = {showChangeParent} item = {itemChangeParent} toggleShow ={toggleShowChangeParent} handleChangeParentAdd = {handleChangeParentAdd} handleChangeParentDelete = {handleChangeParentDelete} setActiveList = {setActiveList} /></div>)
-			}
-
-{
-				showVerify && (<div>hello<Verify show = {showVerify} toggleShow ={toggleShowVerify} targetDelete = {targetDelete} deleteItem = {deleteItem} /></div>)
-			}
-
-		</WLayout>
-	);
+      {showVerify && (
+        <div>
+          hello
+          <Verify
+            show={showVerify}
+            toggleShow={toggleShowVerify}
+            targetDelete={targetDelete}
+            deleteItem={deleteItem}
+          />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Homescreen;
