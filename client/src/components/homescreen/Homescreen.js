@@ -20,6 +20,7 @@ import { UpdateListField_Transaction,
 
 import SubregionContents from '../main/SubregionContents';
 import ChangeParent from '../modals/ChangeParent';
+import Verify from '../modals/Verify';
 
 const Homescreen = (props) => {
 
@@ -52,6 +53,8 @@ const Homescreen = (props) => {
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
+
+	const [targetDelete, setTargetDelete] = useState([]);
 	const [showVerify, toggleShowVerify] 	= useState(false);
 
 	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
@@ -164,7 +167,11 @@ const Homescreen = (props) => {
 		tpsRedo();
 
 	};
-
+	
+	const handleVerify = (data, index) => {
+		setTargetDelete([data, index])
+		console.log("FUCK YEAR", data, index)
+	}
 
 	// const addItemIndependent = async (listID,item) => {
 	// 	const newItem = {
@@ -370,6 +377,8 @@ const Homescreen = (props) => {
 									canUndo={canUndo} 				canRedo={canRedo}
 									sort={sort}						toggleShowSubregion = {toggleShowSubregion}
 									setSubregion = {setSubregion}
+									toggleShowVerify = {toggleShowVerify}
+									handleVerify = {handleVerify}
 								/>:
 								<SubregionContents
 									subregion = {subregion}
@@ -407,6 +416,10 @@ const Homescreen = (props) => {
 
 			{
 				showChangeParent && (<div>hello<ChangeParent todolists = {todolists} show = {showChangeParent} item = {itemChangeParent} toggleShow ={toggleShowChangeParent} handleChangeParentAdd = {handleChangeParentAdd} handleChangeParentDelete = {handleChangeParentDelete} setActiveList = {setActiveList} /></div>)
+			}
+
+{
+				showVerify && (<div>hello<Verify show = {showVerify} toggleShow ={toggleShowVerify} targetDelete = {targetDelete} deleteItem = {deleteItem} /></div>)
 			}
 
 		</WLayout>

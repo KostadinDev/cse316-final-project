@@ -1,32 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-import { WModal, WMHeader, WMMain, WButton } from 'wt-frontend';
+import { WModal, WInput, WMHeader, WMMain, WButton } from 'wt-frontend';
 
-const Delete = (props) => {
+const Verify = ({  show, toggleShow, targetDelete, deleteItem}) => {
 
-    const handleDelete = async () => {
-        props.deleteList(props.activeid);
-        props.setShowDelete(false);
-    }
+    const showHideClassName = show ? "modal display-block" : "modal display-none";
+
+    const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+      }
 
     return (
-        <WModal className="delete-modal" cover="true" visible={props.setShowDelete}>
-            <WMHeader  className="modal-header" onClose={() => props.setShowDelete(false)}>
+        <div className={showHideClassName}>
+
+        <section className="modal-main">
+        <WMHeader  className="modal-header" onClose={() => {toggleShow(false)}}>
                 Are you sure?
 			</WMHeader >
-
+     
+            <div className= "change-parent" >
+            </div>
+    
             <WMMain>
-                <WButton className="modal-button cancel-button" onClick={() => props.setShowDelete(false)} wType="texted">
+                <WButton className="modal-button cancel-button" onClick={() => toggleShow(false)} wType="texted">
                     Cancel
 				</WButton>
                 <label className="col-spacer">&nbsp;</label>
-                <WButton className="modal-button" onClick={handleDelete} clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="danger">
-                    Delete
+                <WButton className="modal-button" onClick={() => {
+                    deleteItem(targetDelete[0], targetDelete[1]);
+                    toggleShow(false);}} clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="danger">
+                    Yes!
 				</WButton>
             </WMMain>
 
-        </WModal >
+        </section>
+      </div>
     );
 }
 
-export default Delete;
+export default Verify;

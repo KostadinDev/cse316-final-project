@@ -76,7 +76,6 @@ const TableEntry = (props) => {
                         </div>
                 }
             </WCol>
-
             <WCol size="2">
                 {
                     editingDate ? <WInput
@@ -142,8 +141,10 @@ const TableEntry = (props) => {
                         <i className="material-icons">expand_more</i>
                     </WButton>
                     <WButton className="table-entry-buttons" onClick={() => {
-                        console.log("MAIKATI");
-                        props.deleteItem(data, props.index)}} wType="texted">
+                        props.toggleShowVerify(true);
+                        props.handleVerify(data, props.index);
+                        //props.deleteItem(data, props.index);
+                        }} wType="texted">
                         <i className="material-icons">close</i>
                     </WButton>
                     <WButton className="table-entry-buttons" onClick={() => {props.toggleShowSubregion(true);props.setSubregion(props.data); console.log(props)}} wType="texted">
