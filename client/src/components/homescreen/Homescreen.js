@@ -287,6 +287,7 @@ const Homescreen = (props) => {
 									subregion = {subregion}
 									editItem={editItem}
 								undo={tpsUndo} redo={tpsRedo}
+								showSubregion ={toggleShowSubregion}
 								canUndo={canUndo} 
 								current = {activeList}				canRedo={canRedo}>
 									

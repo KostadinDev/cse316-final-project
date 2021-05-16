@@ -53,7 +53,7 @@ const SubregionContents = (props) => {
             editItem={props.editItem}
             />
         </div>:
-          <SubregionView editItem={props.editItem} map ={subregion}></SubregionView>
+          <SubregionView editItem={props.editItem} current = {props.current} map ={subregion} showSubregion = {props.showSubregion}></SubregionView>
         }
 
         </div>

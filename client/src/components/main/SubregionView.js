@@ -159,8 +159,10 @@ const SubregionView = (props) => {
               </div>
             </div>
             <div className="region-view-data-entry">
-              <div>Region Name: </div>{" "}
+              <div>Region Parent: </div>{" "}
               <div>
+                <WButton onClick = {() => {props.showSubregion(false)}}> {props.current.name}</WButton>
+               
               </div>
             </div>
             <div className="region-view-data-entry">
