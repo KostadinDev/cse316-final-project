@@ -130,7 +130,7 @@ const SubregionView = (props) => {
               <i className="material-icons">redo</i>
             </WButton>
           </div>
-          <div className="region-view-image"><img className = "subregion-image" src = {"/The World/The World/North America/" + description + " Flag.png"}></img></div>
+          <div className="region-view-image"><img className = "subregion-image" src = {"/The World/The World/" + props.name +"/" + description + " Flag.png"}></img></div>
           <div className="region-view-data">
             <div className="region-view-data-entry">
               <div>Region Name: </div>{" "}

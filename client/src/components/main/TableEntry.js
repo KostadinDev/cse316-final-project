@@ -169,7 +169,7 @@ const TableEntry = (props) => {
         <WCol size="2">
             {/* FIX TO THE WORLD */}
            
-          <img src = {'/The World/' + "The World/" +"North America/" + props.data.description +' Flag.png'} className = "small-flag"></img>
+          <img src = {'/The World/' + "The World/" + props.name + "/" + props.data.description +' Flag.png'} className = "small-flag"></img>
         </WCol>
         <WCol size="2">
           {editingAssigned || assigned_to === "" ? (

@@ -23,6 +23,7 @@ const TableContents = (props) => {
                         handleVerify = {props.handleVerify}
                         links = {props.links}
                         setLinks = {props.setLinks}
+                        name = {props.activeList.name}
                     />
                 ))
             }
