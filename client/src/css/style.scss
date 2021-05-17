@@ -157,6 +157,7 @@ html, body {
     color: $text-color;
     transition: 0.05s ease-in-out;
     height: 46px;
+    background-color: rgba(160,160,160,0.5);
 }
 
 .table-entry:hover {
@@ -236,4 +237,9 @@ html, body {
 .table-entry-buttons-disabled {
     color: var(--warm-black);
     cursor: default;
+}
+
+.open-button{
+    background-color: gray;
+    border:solid 1px;
 }

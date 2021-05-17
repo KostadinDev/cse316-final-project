@@ -8,10 +8,14 @@ const MainContents = (props) => {
     const [view, setView] = useState(0)
     return (
         <div className = 'main-contents'>
+            <div className='change-view-button'>
               <WButton onClick = {() => {
         setView(view+1);
         
         }}>Change View</WButton>
+
+        <WButton> Region Name: {props.activeList.name}</WButton>
+        </div>
 
             {view%2 == 0? 
         <div className='table ' >

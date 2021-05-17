@@ -18,10 +18,16 @@ import { UpdateListField_Transaction,
 	EditItem_Transaction } 				from '../../utils/jsTPS';
 
 
+import Costa from './../../The World/The World/North America/Costa Rica Flag.png'
+
+
 import SubregionContents from '../main/SubregionContents';
 import ChangeParent from '../modals/ChangeParent';
 import Verify from '../modals/Verify';
 import WButton from 'wt-frontend/build/components/wbutton/WButton';
+
+
+
 
 const Homescreen = (props) => {
 
@@ -56,6 +62,11 @@ const Homescreen = (props) => {
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
 	const [homescreen, toggleHomescreen] = useState(true)
+
+
+	const [images, setImages] = useState([])
+
+		
 
 
 	const unload = () =>{
@@ -359,9 +370,12 @@ const Homescreen = (props) => {
         <WNavbar color="colored">
           <ul>
             <WNavItem>
-              <Logo className="logo" toggleHomescreen ={toggleHomescreen} />
+              <Logo className="logo" toggleHomescreen ={toggleHomescreen} unload = {unload} setLinks ={setLinks} />
             </WNavItem>
           </ul>
+		  <ul>
+			  <img  src={"/The World/The World/North America/Costa Rica Flag.png"} alt="Smiley face"></img>
+		  </ul>
 		  <ul>
 			  {links?links.map((link) => (<WButton className = 'links' onClick={link[1]}>{link[0]}</WButton>)):""}
 		  </ul>
@@ -378,7 +392,9 @@ const Homescreen = (props) => {
         </WNavbar>
       </WLHeader>
 	  {homescreen?
-	 	<div className='homescreen-container'><WButton className='homescreen-container-button' onClick = {() => {toggleHomescreen(false)}}>Welcome to The World Data Mapper</WButton></div> 
+	 	<div className='homescreen-container'><WButton className='homescreen-container-button' onClick = {() => {
+			  toggleHomescreen(false);
+			}}>Welcome to The World Data Mapper</WButton></div> 
 	  :<div className="what-the-fuck">
         {!activeList._id ? (
     

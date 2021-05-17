@@ -23,47 +23,81 @@ const TableHeader = (props) => {
     }
 
     return (
-        <WRow className="table-header">
-            <WCol size="2">
-                <WButton onClick={props.disabled ? () => {} : () => props.sort('task') } className='table-header-section' wType="texted" >Name</WButton>
-            </WCol>
+      <WRow className="table-header">
+        <WCol size="2">
+          <div className="table-header-buttons">
+            <WButton
+              onClick={props.disabled ? clickDisabled : props.addItem}
+              wType="texted"
+              className={`${buttonStyle}`}
+              clickAnimation={props.disabled ? "" : "ripple-light"}
+            >
+              <i className="material-icons">add_box</i>
+            </WButton>
+            <WButton {...undoOptions}>
+              <i className="material-icons">undo</i>
+            </WButton>
+            <WButton {...redoOptions}>
+              <i className="material-icons">redo</i>
+            </WButton>
 
-            <WCol size="2">
-                <WButton onClick={props.disabled ? () => {} : () => props.sort('due_date') } className='table-header-section' wType="texted">Capital</WButton>
-            </WCol>
-
-            <WCol size="2">
-                <WButton onClick={props.disabled ? () => {} : () => props.sort('status') } className='table-header-section' wType="texted" >Leader</WButton>
-            </WCol>
-            <WCol size="2">
-                <WButton onClick={props.disabled ? () => {} : () => props.sort('assigned_to') } className='table-header-section' wType="texted" >Flag</WButton>
-            </WCol>
-            <WCol size="2">
-                <WButton onClick={props.disabled ? () => {} : () => props.sort('assigned_to') } className='table-header-section' wType="texted" >Landmarks</WButton>
-            </WCol>
-
-
-            <WCol size="2">
-                <div className="table-header-buttons">
-                    <WButton {...undoOptions}>
-                            <i className="material-icons">undo</i>
-                    </WButton>
-                    <WButton  {...redoOptions}>
-                            <i className="material-icons">redo</i>
-                    </WButton>
-                    <WButton onClick={props.disabled ? clickDisabled : props.addItem} wType="texted" className={`${buttonStyle}`} clickAnimation={props.disabled ? "" : "ripple-light" }>
-                        <i className="material-icons">add_box</i>
-                    </WButton>
-                    <WButton onClick={props.disabled ? clickDisabled : props.setShowDelete} wType="texted" className={`${buttonStyle}`} clickAnimation={props.disabled ? "" : "ripple-light" }>
-                        <i className="material-icons">delete_outline</i>
-                    </WButton>
-                    <WButton onClick={props.disabled ? clickDisabled : () => props.setActiveList({})} wType="texted" className={`${buttonStyle}`} clickAnimation={props.disabled ? "" : "ripple-light" }>
+            {/* <WButton onClick={props.disabled ? clickDisabled : () => props.setActiveList({})} wType="texted" className={`${buttonStyle}`} clickAnimation={props.disabled ? "" : "ripple-light" }>
                         <i className="material-icons">close</i>
-                    </WButton>
-                </div>
-            </WCol>
+                    </WButton> */}
+          </div>
+        </WCol>
+        <WCol size="2">
+          <WButton
+            onClick={props.disabled ? () => {} : () => props.sort("task")}
+            className="table-header-section"
+            wType="texted"
+          >
+            Name
+          </WButton>
+        </WCol>
 
-        </WRow>
+        <WCol size="2">
+          <WButton
+            onClick={props.disabled ? () => {} : () => props.sort("due_date")}
+            className="table-header-section"
+            wType="texted"
+          >
+            Capital
+          </WButton>
+        </WCol>
+
+        <WCol size="2">
+          <WButton
+            onClick={props.disabled ? () => {} : () => props.sort("status")}
+            className="table-header-section"
+            wType="texted"
+          >
+            Leader
+          </WButton>
+        </WCol>
+        <WCol size="2">
+          <WButton
+            onClick={
+              props.disabled ? () => {} : () => props.sort("assigned_to")
+            }
+            className="table-header-section"
+            wType="texted"
+          >
+            Flag
+          </WButton>
+        </WCol>
+        <WCol size="2">
+          <WButton
+            onClick={
+              props.disabled ? () => {} : () => props.sort("assigned_to")
+            }
+            className="table-header-section"
+            wType="texted"
+          >
+            Landmarks
+          </WButton>
+        </WCol>
+      </WRow>
     );
 };
 

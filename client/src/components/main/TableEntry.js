@@ -60,49 +60,99 @@ const TableEntry = (props) => {
     }
 
     return (
-        <WRow className='table-entry'>
-            <WCol size="2">
-                {
-                    editingDescr || description === ''
-                        ? <WInput
-                            className='table-input' onBlur={handleDescrEdit}
-                            onKeyDown={(e) => {if(e.keyCode === 13) handleDescrEdit(e)}}
-                            autoFocus={true} defaultValue={description} type='text'
-                            inputClass="table-input-class"
-                        />
-                        : <div className="table-text"
-                            onClick={() => toggleDescrEdit(!editingDescr)}
-                        >{description}
-                        </div>
-                }
-            </WCol>
-            <WCol size="2">
-                {
-                    editingDate ? <WInput
-                        className='table-input' onBlur={handleDateEdit}
-                        autoFocus={true} defaultValue={due_date} type='text'
-                        wtype="outlined" baranimation="solid" inputclass="table-input-class"
-                    />
-                        : <div className="table-text"
-                            onClick={() => toggleDateEdit(!editingDate)}
-                        >{due_date}
-                        </div>
-                }
-            </WCol>
+      <WRow className="table-entry">
+        <WCol size="2">
+          <div className="button-group">
+            <WButton
+              className="table-entry-buttons"
+              onClick={() => {
+                props.toggleShowVerify(true);
+                props.handleVerify(data, props.index);
+                //props.deleteItem(data, props.index);
+              }}
+              wType="texted"
+            >
+              <i className="material-icons">close</i>
+            </WButton>
+            <WButton
+              className="table-entry-buttons open-button"
+              onClick={() => {
+                props.toggleShowSubregion(true);
+                props.setSubregion(props.data);
+                props.links.push([props.data.description, () => {}]);
+                props.setLinks(props.links);
+              }}
+              wType="texted"
+            >
+              Open
+            </WButton>
+          </div>
+        </WCol>
+        <WCol size="2">
+          {editingDescr || description === "" ? (
+            <WInput
+              className="table-input"
+              onBlur={handleDescrEdit}
+              onKeyDown={(e) => {
+                if (e.keyCode === 13) handleDescrEdit(e);
+              }}
+              autoFocus={true}
+              defaultValue={description}
+              type="text"
+              inputClass="table-input-class"
+            />
+          ) : (
+            <div
+              className="table-text"
+              onClick={() => toggleDescrEdit(!editingDescr)}
+            >
+              {description}
+            </div>
+          )}
+        </WCol>
+        <WCol size="2">
+          {editingDate ? (
+            <WInput
+              className="table-input"
+              onBlur={handleDateEdit}
+              autoFocus={true}
+              defaultValue={due_date}
+              type="text"
+              wtype="outlined"
+              baranimation="solid"
+              inputclass="table-input-class"
+            />
+          ) : (
+            <div
+              className="table-text"
+              onClick={() => toggleDateEdit(!editingDate)}
+            >
+              {due_date}
+            </div>
+          )}
+        </WCol>
 
-            <WCol size="2">
-            {
-                    editingStatus ? <WInput
-                        className='table-input' onBlur={handleStatusEdit}
-                        autoFocus={true} defaultValue={status} type='text'
-                        wtype="outlined" baranimation="solid" inputclass="table-input-class"
-                    />
-                        : <div className="table-text"
-                            onClick={() => toggleStatusEdit(!editingStatus)}
-                        >{status}
-                        </div>
-                }
-                {/* {
+        <WCol size="2">
+          {editingStatus ? (
+            <WInput
+              className="table-input"
+              onBlur={handleStatusEdit}
+              autoFocus={true}
+              defaultValue={status}
+              type="text"
+              wtype="outlined"
+              baranimation="solid"
+              inputclass="table-input-class"
+            />
+          ) : (
+            <div
+              className="table-text"
+              onClick={() => toggleStatusEdit(!editingStatus)}
+            >
+              {status}
+            </div>
+          )}
+          {/* {
                     editingStatus ? <select
                         className='table-select' onBlur={handleStatusEdit}
                         autoFocus={true} defaultValue={status}
@@ -114,45 +164,34 @@ const TableEntry = (props) => {
                             {status}
                         </div>
                 } */}
-            </WCol>
-
-
-            <WCol size="2">
-                {
-                    editingAssigned || assigned_to === ''
-                        ? <WInput
-                            className='table-input' onBlur={handleAssignEdit}
-                            type = 'text'
-                            autoFocus={true} defaultValue={assigned_to} type='text'
-                            /*wType="outlined" barAnimation="solid" */inputclass="table-input-class"
-                        />
-                        : <div className={`${assignedToStyle} table-text`}
-                            onClick={() => toggleAssignEdit(!editingAssigned)}
-                        >{assigned_to}
-                        </div>
-                }
-            </WCol>
-            <WCol size="2">
-                <div className='button-group'>
-                    <WButton className={canMoveUp ? "table-entry-buttons" : "table-entry-buttons-disabled"} onClick={canMoveUp ? () => props.reorderItem(data._id, -1) : disabledButton } wType="texted">
-                        <i className="material-icons">expand_less</i>
-                    </WButton>
-                    <WButton className={canMoveDown ? "table-entry-buttons" : "table-entry-buttons-disabled"} onClick={canMoveDown ? () => props.reorderItem(data._id, 1) : disabledButton } wType="texted">
-                        <i className="material-icons">expand_more</i>
-                    </WButton>
-                    <WButton className="table-entry-buttons" onClick={() => {
-                        props.toggleShowVerify(true);
-                        props.handleVerify(data, props.index);
-                        //props.deleteItem(data, props.index);
-                        }} wType="texted">
-                        <i className="material-icons">close</i>
-                    </WButton>
-                    <WButton className="table-entry-buttons" onClick={() => {props.toggleShowSubregion(true);props.setSubregion(props.data); props.links.push([props.data.description, () => {}]);props.setLinks(props.links)}} wType="texted">
-                        <i className="material-icons">add_box</i>
-                    </WButton>
-                </div>
-            </WCol>
-        </WRow>
+        </WCol>
+                
+        <WCol size="2">
+            {/* FIX TO THE WORLD */}
+           
+          <img src = {'/The World/' + "The World/" +"North America/" + props.data.description +' Flag.png'} className = "small-flag"></img>
+        </WCol>
+        <WCol size="2">
+          {editingAssigned || assigned_to === "" ? (
+            <WInput
+              className="table-input"
+              onBlur={handleAssignEdit}
+              type="text"
+              autoFocus={true}
+              defaultValue={assigned_to}
+              type="text"
+              /*wType="outlined" barAnimation="solid" */ inputclass="table-input-class"
+            />
+          ) : (
+            <div
+              className={`${assignedToStyle} table-text`}
+              onClick={() => toggleAssignEdit(!editingAssigned)}
+            >
+              {assigned_to}
+            </div>
+          )}
+        </WCol>
+      </WRow>
     );
 };
 
