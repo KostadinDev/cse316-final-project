@@ -120,7 +120,7 @@ const SubregionView = (props) => {
     }
 
     return (
-      <div className="region-view">
+      <div className="subregion-view">
         <div className="region-view-info">
           <div className="region-view-icons">
             <WButton>
@@ -130,7 +130,7 @@ const SubregionView = (props) => {
               <i className="material-icons">redo</i>
             </WButton>
           </div>
-          <div className="region-view-image">image</div>
+          <div className="region-view-image"><img className = "subregion-image" src = {"/The World/The World/North America/" + description + " Flag.png"}></img></div>
           <div className="region-view-data">
             <div className="region-view-data-entry">
               <div>Region Name: </div>{" "}
@@ -161,8 +161,8 @@ const SubregionView = (props) => {
             <div className="region-view-data-entry">
               <div>Region Parent: </div>{" "}
               <div>
-                <WButton onClick = {() => {props.showSubregion(false)}}> {props.current.name}</WButton>
-                <WButton onClick = {() => {props.toggleShowChangeParent(true); props.setItemChangeParent(props.map)}}>Change Parent</WButton>
+                <WButton  className = "region-parent-button" onClick = {() => {props.showSubregion(false)}}> {props.current.name}</WButton>
+                <WButton className = "region-parent-button" onClick = {() => {props.toggleShowChangeParent(true); props.setItemChangeParent(props.map)}}><i className="material-icons">edit</i></WButton>
               </div>
             </div>
             <div className="region-view-data-entry">
@@ -223,7 +223,7 @@ const SubregionView = (props) => {
         </div>
         <div className="region-view-landmarks">
           <div className="region-view-data region-view-landmarks-data">
-            <div className="region-view-landmark-entry">
+            <div className="subregion-view-landmark-entry">
                 {assigned.map((landmark) =>( <LandmarkEntry handleEditLandmark = {handleEditLandmark} toggleEditLandmark = {toggleEditLandmark} deleteLandmark = {deleteLandmark} landmark = {landmark}></LandmarkEntry>))}
             </div>
           </div>

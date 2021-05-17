@@ -25,6 +25,7 @@ import SubregionContents from '../main/SubregionContents';
 import ChangeParent from '../modals/ChangeParent';
 import Verify from '../modals/Verify';
 import WButton from 'wt-frontend/build/components/wbutton/WButton';
+import EditMap from '../modals/EditMap';
 
 
 
@@ -62,6 +63,9 @@ const Homescreen = (props) => {
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
 	const [homescreen, toggleHomescreen] = useState(true)
+
+	const [showEditMap, toggleShowEditMap] = useState(false);
+	const [editMapId, setEditMapId] = useState("");
 
 
 	const [images, setImages] = useState([])
@@ -364,21 +368,36 @@ const Homescreen = (props) => {
 	deleteItemIndependent(oldList._id, item, 0);
 }
 
+	const handleEditMap = (id) =>{
+
+		setEditMapId(id);
+		toggleShowEditMap(true);
+
+	}
+
 	return (
     <div className="overall">
       <WLHeader className="header">
         <WNavbar color="colored">
           <ul>
             <WNavItem>
-              <Logo className="logo" toggleHomescreen ={toggleHomescreen} unload = {unload} setLinks ={setLinks} />
+              <Logo
+                className="logo"
+                toggleHomescreen={toggleHomescreen}
+                unload={unload}
+                setLinks={setLinks}
+              />
             </WNavItem>
           </ul>
-		  <ul>
-			  <img  src={"/The World/The World/North America/Costa Rica Flag.png"} alt="Smiley face"></img>
-		  </ul>
-		  <ul>
-			  {links?links.map((link) => (<WButton className = 'links' onClick={link[1]}>{link[0]}</WButton>)):""}
-		  </ul>
+          <ul>
+            {links
+              ? links.map((link) => (
+                  <WButton className="links" onClick={link[1]}>
+                    {link[0]}
+                  </WButton>
+                ))
+              : ""}
+          </ul>
           <ul>
             <NavbarOptions
               fetchUser={props.fetchUser}
@@ -391,14 +410,21 @@ const Homescreen = (props) => {
           </ul>
         </WNavbar>
       </WLHeader>
-	  {homescreen?
-	 	<div className='homescreen-container'><WButton className='homescreen-container-button' onClick = {() => {
-			  toggleHomescreen(false);
-			}}>Welcome to The World Data Mapper</WButton></div> 
-	  :<div className="what-the-fuck">
-        {!activeList._id ? (
-    
-            <WSidebar className='maps'>
+      {homescreen ? (
+        <div className="homescreen-container">
+          <WButton
+            className="homescreen-container-button"
+            onClick={() => {
+              toggleHomescreen(false);
+            }}
+          >
+            Welcome to The World Data Mapper
+          </WButton>
+        </div>
+      ) : (
+        <div className="what-the-fuck">
+          {!activeList._id ? (
+            <WSidebar className="maps">
               {activeList ? (
                 <SidebarContents
                   listIDs={SidebarData}
@@ -407,61 +433,61 @@ const Homescreen = (props) => {
                   handleSetActive={handleSetActive}
                   createNewList={createNewList}
                   updateListField={updateListField}
-				  setShowDelete = {setShowDelete}
+                  setShowDelete={setShowDelete}
                   key={activeList._id}
+				  handleEditMap = {handleEditMap}
                 />
               ) : (
                 <></>
               )}
             </WSidebar>
-         
-        ) : (
-          <WLMain>
-            {activeList ? (
-              <div className="container-secondary">
-                {!showSubregion ? (
-                  <MainContents
-                    addItem={addItem}
-                    deleteItem={deleteItem}
-                    editItem={editItem}
-                    reorderItem={reorderItem}
-                    setShowDelete={setShowDelete}
-                    undo={tpsUndo}
-                    redo={tpsRedo}
-                    activeList={activeList}
-                    setActiveList={loadTodoList}
-                    canUndo={canUndo}
-                    canRedo={canRedo}
-                    sort={sort}
-                    toggleShowSubregion={toggleShowSubregion}
-                    setSubregion={setSubregion}
-                    toggleShowVerify={toggleShowVerify}
-                    handleVerify={handleVerify}
-					links = {links}
-					setLinks = {setLinks}
-                  />
-                ) : (
-                  <SubregionContents
-                    subregion={subregion}
-                    editItem={editItem}
-                    undo={tpsUndo}
-                    redo={tpsRedo}
-                    showSubregion={toggleShowSubregion}
-                    toggleShowChangeParent={toggleShowChangeParent}
-                    setItemChangeParent={setItemChangeParent}
-                    canUndo={canUndo}
-                    current={activeList}
-                    canRedo={canRedo}
-                  ></SubregionContents>
-                )}
-              </div>
-            ) : (
-              <div className="container-secondary" />
-            )}
-          </WLMain>
-        )}
-      </div>}
-      
+          ) : (
+            <WLMain>
+              {activeList ? (
+                <div className="container-secondary">
+                  {!showSubregion ? (
+                    <MainContents
+                      addItem={addItem}
+                      deleteItem={deleteItem}
+                      editItem={editItem}
+                      reorderItem={reorderItem}
+                      setShowDelete={setShowDelete}
+                      undo={tpsUndo}
+                      redo={tpsRedo}
+                      activeList={activeList}
+                      setActiveList={loadTodoList}
+                      canUndo={canUndo}
+                      canRedo={canRedo}
+                      sort={sort}
+                      toggleShowSubregion={toggleShowSubregion}
+                      setSubregion={setSubregion}
+                      toggleShowVerify={toggleShowVerify}
+                      handleVerify={handleVerify}
+                      links={links}
+                      setLinks={setLinks}
+                    />
+                  ) : (
+                    <SubregionContents
+                      subregion={subregion}
+                      editItem={editItem}
+                      undo={tpsUndo}
+                      redo={tpsRedo}
+                      showSubregion={toggleShowSubregion}
+                      toggleShowChangeParent={toggleShowChangeParent}
+                      setItemChangeParent={setItemChangeParent}
+                      canUndo={canUndo}
+                      current={activeList}
+                      canRedo={canRedo}
+                    ></SubregionContents>
+                  )}
+                </div>
+              ) : (
+                <div className="container-secondary" />
+              )}
+            </WLMain>
+          )}
+        </div>
+      )}
 
       {showDelete && (
         <Delete
@@ -488,7 +514,6 @@ const Homescreen = (props) => {
 
       {showChangeParent && (
         <div>
-          hello
           <ChangeParent
             todolists={todolists}
             show={showChangeParent}
@@ -503,12 +528,22 @@ const Homescreen = (props) => {
 
       {showVerify && (
         <div>
-          hello
           <Verify
             show={showVerify}
             toggleShow={toggleShowVerify}
             targetDelete={targetDelete}
             deleteItem={deleteItem}
+          />
+        </div>
+      )}
+
+      {showEditMap && (
+        <div>
+          <EditMap
+            show={showEditMap}
+            toggleShow={toggleShowEditMap}
+			id = {editMapId}
+			update ={updateListField}
           />
         </div>
       )}

@@ -23,13 +23,13 @@ const ChangeParent = ({ todolists, show, item, toggleShow, handleChangeParentAdd
     return (
         <div className={showHideClassName}>
 
-        <section className="modal-main">
-        <WMHeader  className="modal-header" onClose={() => {toggleShow(false)}}>
+        <div className="modal-main change-parent-container">
+        <WMHeader  className="modal-header modal-header-change-parent" onClose={() => {toggleShow(false)}}>
                 Change Parent
 			</WMHeader >
      
             <div className= "change-parent" >
-                {todolists.map((todolist) =>(<div><WButton onClick = {() => {handleChangeParentAdd(findCurrentTodolist(), todolist, item);sleep(500).then(() => {handleChangeParentDelete(findCurrentTodolist(), null, item) }); toggleShow(false); setActiveList({});}}>{todolist.name}</WButton>   </div>))}
+                {todolists.map((todolist) =>(<div><WButton className = "change-parent-button" onClick = {() => {handleChangeParentAdd(findCurrentTodolist(), todolist, item);sleep(500).then(() => {handleChangeParentDelete(findCurrentTodolist(), null, item) }); toggleShow(false); setActiveList({});}}>{todolist.name}</WButton>   </div>))}
             </div>
     
             <WMMain>
@@ -42,7 +42,7 @@ const ChangeParent = ({ todolists, show, item, toggleShow, handleChangeParentAdd
 				</WButton>
             </WMMain>
 
-        </section>
+        </div>
       </div>
     );
 }

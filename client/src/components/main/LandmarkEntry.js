@@ -27,7 +27,7 @@ const LandmarkEntry = (props) => {
       <form
         onSubmit={handleSubmit}
       >
-        <WRow className="table-entry">
+        <WRow className="subregion-table-entry">
           <WCol size="10">
             {edit? (
               <WInput

@@ -14,10 +14,14 @@ const SubregionContents = (props) => {
 
     return (
         <div className = 'main-contents'>
+            <div className='subregion-main-buttons'>
+
+  
               <WButton onClick = {() => {
         setView(view+1);
         
         }}>Change View</WButton>
+        <div>
             <WButton onClick = {() => {
                  //setView(view+1);
         for (let i = 0; i< props.current.items.length;i++){
@@ -41,6 +45,9 @@ const SubregionContents = (props) => {
             }
         
         }}>Next</WButton>
+        </div>
+
+</div>
 
             {view%2 == 0? 
         <div className='table ' >
