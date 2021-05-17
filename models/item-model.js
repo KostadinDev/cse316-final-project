@@ -19,13 +19,10 @@ const itemSchema = new Schema(
 			required: true
 		},
 		completed: {
-			type: Boolean,
-			required: true
-		},
-		subregions: {
-			type: [String],
+			type: String,
 			required: true
 		}
+
 	}
 );
 

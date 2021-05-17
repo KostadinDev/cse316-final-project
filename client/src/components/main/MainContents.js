@@ -9,15 +9,11 @@ const MainContents = (props) => {
     return (
         <div className = 'main-contents'>
             <div className='change-view-button'>
-              <WButton onClick = {() => {
-        setView(view+1);
-        
-        }}>Change View</WButton>
 
         <WButton> Region Name: {props.activeList.name}</WButton>
         </div>
 
-            {view%2 == 0? 
+           
         <div className='table ' >
             <TableHeader
                 disabled={!props.activeList._id}        addItem={props.addItem}
@@ -35,9 +31,8 @@ const MainContents = (props) => {
                 links = {props.links}
                 setLinks = {props.setLinks}
             />
-        </div>:
-          <RegionView map ={props.activeList}></RegionView>
-        }
+        </div>
+       
 
         </div>
     );

@@ -24,7 +24,7 @@ const todolistSchema = new Schema(
 		sortDirection: {
 			type: Number, 
 			required: true
-		}
+		},
 	},
 	{ timestamps: true }
 );

@@ -9,9 +9,10 @@ const TableEntry = (props) => {
 
     const description = data.description;
     const due_date = data.due_date;
-    const status = data.completed ? 'complete' : 'incomplete';
+    const status = data.completed;
     const assigned_to = data.assigned_to;
-
+    const subregions = data.subregions
+    console.log(data)
     const canMoveUp = props.index > 0 ? true : false;
     const canMoveDown = props.index < props.entryCount-1 ? true : false;
     
@@ -52,7 +53,7 @@ const TableEntry = (props) => {
 
     const handleAssignEdit = (e) => {
         toggleAssignEdit(false);
-        const newAssigned = e.target.value ? e.target.value : 'Myself';
+        const newAssigned = e.target.value ? e.target.value : '';
         const prevAssigned = assigned_to;
         if(newAssigned !== prevAssigned) {
             props.editItem(data._id, 'assigned_to', newAssigned, prevAssigned);

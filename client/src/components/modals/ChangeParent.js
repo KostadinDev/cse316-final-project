@@ -21,27 +21,56 @@ const ChangeParent = ({ todolists, show, item, toggleShow, handleChangeParentAdd
     }
 
     return (
-        <div className={showHideClassName}>
-
+      <div className={showHideClassName}>
         <div className="modal-main change-parent-container">
-        <WMHeader  className="modal-header modal-header-change-parent" onClose={() => {toggleShow(false)}}>
-                Change Parent
-			</WMHeader >
-     
-            <div className= "change-parent" >
-                {todolists.map((todolist) =>(<div><WButton className = "change-parent-button" onClick = {() => {handleChangeParentAdd(findCurrentTodolist(), todolist, item);sleep(500).then(() => {handleChangeParentDelete(findCurrentTodolist(), null, item) }); toggleShow(false); setActiveList({});}}>{todolist.name}</WButton>   </div>))}
-            </div>
-    
-            <WMMain>
-                <WButton className="modal-button cancel-button" onClick={() => toggleShow(false)} wType="texted">
-                    Cancel
-				</WButton>
-                <label className="col-spacer">&nbsp;</label>
-                <WButton className="modal-button" onClick={() => {console.log(todolists, item, '"HELLO')}} clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="danger">
-                    Change
-				</WButton>
-            </WMMain>
+          <WMHeader
+            className="modal-header modal-header-change-parent"
+            onClose={() => {
+              toggleShow(false);
+            }}
+          >
+            Change Parent
+          </WMHeader>
 
+          <div className="change-parent">
+            {todolists.map((todolist) => (
+              <div className="change-parent-button-container">
+                <WButton
+                  className="change-parent-button"
+                  onClick={() => {
+                    handleChangeParentAdd(
+                      findCurrentTodolist(),
+                      todolist,
+                      item
+                    );
+                    
+                    sleep(500).then(() => {
+                      handleChangeParentDelete(
+                        findCurrentTodolist(),
+                        null,
+                        item
+                      );
+                    });
+                    console.log("gets here no?")
+                    toggleShow(false);
+                    setActiveList({});
+                  }}
+                >
+                  {todolist.name}
+                </WButton>{" "}
+              </div>
+            ))}
+          </div>
+          <WMHeader>
+            <hr></hr>
+            <WButton
+              className="modal-button cancel-button"
+              onClick={() => toggleShow(false)}
+              wType="texted"
+            >
+              Cancel
+            </WButton>
+          </WMHeader>
         </div>
       </div>
     );

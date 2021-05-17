@@ -13,7 +13,7 @@ const Verify = ({  show, toggleShow, targetDelete, deleteItem}) => {
     return (
         <div className={showHideClassName}>
 
-        <section className="modal-main">
+        <section className="modal-main-veriy verify-sure">
         <WMHeader  className="modal-header" onClose={() => {toggleShow(false)}}>
                 Are you sure?
 			</WMHeader >
@@ -21,7 +21,8 @@ const Verify = ({  show, toggleShow, targetDelete, deleteItem}) => {
             <div className= "change-parent" >
             </div>
     
-            <WMMain>
+            <WMMain className = 'verify-sure'>
+                <div>
                 <WButton className="modal-button cancel-button" onClick={() => toggleShow(false)} wType="texted">
                     Cancel
 				</WButton>
@@ -31,6 +32,7 @@ const Verify = ({  show, toggleShow, targetDelete, deleteItem}) => {
                     toggleShow(false);}} clickAnimation="ripple-light" hoverAnimation="darken" shape="rounded" color="danger">
                     Yes!
 				</WButton>
+                </div>
             </WMMain>
 
         </section>

@@ -46,8 +46,12 @@ module.exports = {
 			if(!found) return ('Todolist not found');
 			if(item._id === '') item._id = objectId;
 			let listItems = found.items;
+			console.log(item)
 			if(index < 0) listItems.push(item);
 			else listItems.splice(index, 0, item);
+
+
+			console.log(listItems)
 			
 			
 			const updated = await Todolist.updateOne({_id: listId}, { items: listItems });
@@ -83,6 +87,7 @@ module.exports = {
 							 array on failure
 		**/
 		deleteItem: async (_, args) => {
+			console.log("HELLO MF?")
 			const  { _id, itemId } = args;
 			const listId = new ObjectId(_id);
 			const found = await Todolist.findOne({_id: listId});
@@ -122,19 +127,17 @@ module.exports = {
 			@returns {array} the updated item array on success, or the initial item array on failure
 		**/
 		updateItemField: async (_, args) => {
+
+			console.log('gets here')
 			const { _id, itemId, field,  flag } = args;
 			let { value } = args
 			const listId = new ObjectId(_id);
 			const found = await Todolist.findOne({_id: listId});
 			let listItems = found.items;
-			if(flag === 1) {
-				if(value === 'complete') { value = true; }
-				if(value === 'incomplete') { value = false; }
-			}
+			
 			listItems.map(item => {
 				if(item._id.toString() === itemId) {	
-					
-					item[field] = value;
+					item[field] = value;	
 				}
 			});
 			const updated = await Todolist.updateOne({_id: listId}, { items: listItems })

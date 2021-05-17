@@ -17,7 +17,7 @@ const SubregionView = (props) => {
     const [status, setStatus] = useState(props.map.completed) 
 
     const [editingAssigned, toggleAssignedEdit] = useState(false);
-    const [assigned, setAssigned] = useState(props.map.assigned_to.split(" ")) 
+    const [assigned, setAssigned] = useState(props.map.assigned_to.split(", ")) 
 
     
 
@@ -61,7 +61,7 @@ const SubregionView = (props) => {
 
     let handleSubmit = (event) =>{
       event.preventDefault();
-      const newAssigned = props.map.assigned_to+ " " + event.target.children[1].value;
+      const newAssigned = props.map.assigned_to+ ", " + event.target.children[1].value;
       const prevAssigned = props.map.assigned_to;
       props.editItem(props.map._id, 'assigned_to', newAssigned, prevAssigned);
       assigned.push(event.target.children[1].value)
@@ -97,7 +97,6 @@ const SubregionView = (props) => {
     }
 
     const changeLandmark = (landmark, newLandmark) =>{
-      console.log(newLandmark, ' HERE')
       for (let i =0;i<assigned.length;i++){
         if (assigned[i] == landmark){
           console.log(i);
@@ -123,12 +122,12 @@ const SubregionView = (props) => {
       <div className="subregion-view">
         <div className="region-view-info">
           <div className="region-view-icons">
-            <WButton>
+            {/* <WButton onClick = {() => {props.undo()}}>
               <i className="material-icons">undo</i>
             </WButton>
-            <WButton>
+            <WButton onClick = {() => {props.redo()}}>
               <i className="material-icons">redo</i>
-            </WButton>
+            </WButton> */}
           </div>
           <div className="region-view-image"><img className = "subregion-image" src = {"/The World/The World/" + props.name +"/" + description + " Flag.png"}></img></div>
           <div className="region-view-data">
@@ -222,14 +221,14 @@ const SubregionView = (props) => {
           </div>
         </div>
         <div className="region-view-landmarks">
-          <div className="region-view-data region-view-landmarks-data">
+          <div className="region-view-landmarks-data">
             <div className="subregion-view-landmark-entry">
                 {assigned.map((landmark) =>( <LandmarkEntry handleEditLandmark = {handleEditLandmark} toggleEditLandmark = {toggleEditLandmark} deleteLandmark = {deleteLandmark} landmark = {landmark}></LandmarkEntry>))}
             </div>
           </div>
 
           <div className="region-view-landmarks-add">
-            <form onSubmit= {handleSubmit}>
+            <form className= 'form-subregion' onSubmit= {handleSubmit}>
             <WButton
               className=" region-view-landmarks-add-button"
               wType="texted"

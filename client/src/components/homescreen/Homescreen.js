@@ -172,15 +172,14 @@ const Homescreen = (props) => {
 		const items = list.items;
 		const newItem = {
 			_id: '',
-			description: 'No Description',
-			due_date: 'No Date',
-			assigned_to: 'No One',
+			description: 'No Name',
+			due_date: 'No Capital',
+			assigned_to: 'default',
 			completed: false
 		};
 		let opcode = 1;
 		let itemID = newItem._id;
 		let listID = activeList._id;
-		console.log("DOES IT GET HERE???")
 		let transaction = new UpdateListItems_Transaction(listID, itemID, newItem, opcode, AddTodoItem, DeleteTodoItem);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
@@ -205,7 +204,6 @@ const Homescreen = (props) => {
 	
 	const handleVerify = (data, index) => {
 		setTargetDelete([data, index])
-		console.log("FUCK YEAR", data, index)
 	}
 
 	// const addItemIndependent = async (listID,item) => {
@@ -235,15 +233,15 @@ const Homescreen = (props) => {
 		};
 		let opcode = 1;
 		let itemID = newItem._id;
+		console.log("Hello? 1 ", listID, itemID, newItem)
 		let transaction = new UpdateListItems_Transaction(listID, itemID, newItem, opcode, AddTodoItem, DeleteTodoItem);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
-		console.log("ZAKADE BURZASH?")
+		console.log("Hello? 2 ")
 	};
 
 
 	 const deleteItemIndependent = async (listID, item, index) => {
-		console.log("KVO IMA BE?")
 		let itemID = item._id;
 		let opcode = 0;
 		let itemToDelete = {
@@ -262,7 +260,6 @@ const Homescreen = (props) => {
 
 	const editItem = async (itemID, field, value, prev) => {
 		let flag = 0;
-		if (field === 'completed') flag = 1;
 		let listID = activeList._id;
 		let transaction = new EditItem_Transaction(listID, itemID, field, prev, value, flag, UpdateTodoItemField);
 		props.tps.addTransaction(transaction);
@@ -349,6 +346,7 @@ const Homescreen = (props) => {
 			// 		}
 			// 	}
 			// }
+		
 		addItemIndependent(newList._id, item);
 		
 	
@@ -398,7 +396,10 @@ const Homescreen = (props) => {
                 ))
               : ""}
           </ul>
-          <ul>
+          <ul><div className ="username">
+			  {props.user?props.user.firstName:"what"}
+			  </div>
+			 
             <NavbarOptions
               fetchUser={props.fetchUser}
               auth={auth}
