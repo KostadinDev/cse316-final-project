@@ -11,7 +11,7 @@ const SidebarContents = (props) => {
                 auth={props.auth} createNewList={props.createNewList} activeid={props.activeid}
             />
             <div className='maps-inner'>
-                <div className = 'maps-inner-half'>
+                <div className = 'maps-inner-half home2'>
             <SidebarList
                 activeid={props.activeid} handleSetActive={props.handleSetActive}
                 listIDs={props.listIDs} createNewList={props.createNewList}
@@ -22,9 +22,8 @@ const SidebarContents = (props) => {
             />
             </div>
             <div className = 'maps-inner-half maps-inner-image'>
-                <div>
-                image
-                </div>
+                <img className='logo-image' src = {"logo.png"}>
+                </img>
                 <div>
                     <WButton onClick={props.activeid ? disabledClick : props.createNewList} className='create-map-button'>
                  Create new Map

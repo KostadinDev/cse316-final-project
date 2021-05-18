@@ -132,7 +132,7 @@ const SubregionView = (props) => {
           <div className="region-view-image"><img className = "subregion-image" src = {"/The World/The World/" + props.name +"/" + description + " Flag.png"}></img></div>
           <div className="region-view-data">
             <div className="region-view-data-entry">
-              <div>Region Name: </div>{" "}
+              <div className='region-view-name'>Region Name: </div>{" "}
               <div>
                 {" "}
                 {editingDescr || props.map.description === "" ? (
@@ -158,14 +158,14 @@ const SubregionView = (props) => {
               </div>
             </div>
             <div className="region-view-data-entry">
-              <div>Region Parent: </div>{" "}
+              <div className='region-view-name'>Region Parent: </div>{" "}
               <div>
                 <WButton  className = "region-parent-button" onClick = {() => {props.showSubregion(false)}}> {props.current.name}</WButton>
                 <WButton className = "region-parent-button" onClick = {() => {props.toggleShowChangeParent(true); props.setItemChangeParent(props.map)}}><i className="material-icons">edit</i></WButton>
               </div>
             </div>
             <div className="region-view-data-entry">
-              <div> Region Capital:</div>{" "}
+              <div className='region-view-name'> Region Capital:</div>{" "}
               <div>
                 {" "}
                 {editingDate ? (
@@ -190,7 +190,7 @@ const SubregionView = (props) => {
               </div>
             </div>
             <div className="region-view-data-entry">
-              <div>Region Leader: </div>{" "}
+              <div className='region-view-name'>Region Leader: </div>{" "}
               <div>
                 {" "}
                 {editingStatus || props.map.completed === "" ? (
@@ -215,7 +215,7 @@ const SubregionView = (props) => {
                 )}
               </div>
             </div>
-            <div className="region-view-data-entry">
+            <div className="region-view-data-entry" className='region-view-name'>
               # of Sub Regions: {props.map.items ? props.map.items.length : "0"}
             </div>
           </div>

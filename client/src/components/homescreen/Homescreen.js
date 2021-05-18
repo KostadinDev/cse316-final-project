@@ -190,10 +190,10 @@ const Homescreen = (props) => {
 		const items = list.items;
 		const newItem = {
 			_id: '',
-			description: 'No Description',
-			due_date: 'No Date',
-			assigned_to: 'No One',
-			completed: 'false'
+			description: 'default',
+			due_date: 'default',
+			assigned_to: 'default',
+			completed: 'default'
 		};
 		let opcode = 1;
 		let itemID = newItem._id;
@@ -417,7 +417,7 @@ const Homescreen = (props) => {
               : ""}
           </ul>
           <ul><div className ="username">
-			  {props.user?props.user.firstName:"what"}
+			  {props.user?props.user.firstName:""}
 			  </div>
 			 
             <NavbarOptions
@@ -436,9 +436,13 @@ const Homescreen = (props) => {
           <WButton
             className="homescreen-container-button"
             onClick={() => {
+				if (props.user)
+				{
               toggleHomescreen(false);
+				}
             }}
-          >
+          >	
+			  <img className='logo-image' src = {"logo.png"}></img>
             Welcome to The World Data Mapper
           </WButton>
         </div>
