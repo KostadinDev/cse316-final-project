@@ -24,6 +24,9 @@ const TableContents = (props) => {
                         links = {props.links}
                         setLinks = {props.setLinks}
                         name = {props.activeList.name}
+                        selected = {props.selected}
+                        enter = {props.enter}
+                        setEnter = {props.setEnter}
                     />
                 ))
             }

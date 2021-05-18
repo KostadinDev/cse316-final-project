@@ -46,12 +46,8 @@ module.exports = {
 			if(!found) return ('Todolist not found');
 			if(item._id === '') item._id = objectId;
 			let listItems = found.items;
-			console.log(item)
 			if(index < 0) listItems.push(item);
 			else listItems.splice(index, 0, item);
-
-
-			console.log(listItems)
 			
 			
 			const updated = await Todolist.updateOne({_id: listId}, { items: listItems });

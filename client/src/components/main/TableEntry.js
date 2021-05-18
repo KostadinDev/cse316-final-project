@@ -11,10 +11,13 @@ const TableEntry = (props) => {
     const due_date = data.due_date;
     const status = data.completed;
     const assigned_to = data.assigned_to;
-    const subregions = data.subregions
     console.log(data)
     const canMoveUp = props.index > 0 ? true : false;
     const canMoveDown = props.index < props.entryCount-1 ? true : false;
+
+    let tableStyle = props.selected == props.index?'table-entry hovered':'table-entry';
+
+   
     
     const [editingDate, toggleDateEdit] = useState(false);
     const [editingDescr, toggleDescrEdit] = useState(false);
@@ -59,9 +62,15 @@ const TableEntry = (props) => {
             props.editItem(data._id, 'assigned_to', newAssigned, prevAssigned);
         }
     }
-
+    if (props.enter && props.selected == props.index){
+      props.setEnter(false);
+      props.toggleShowSubregion(true);
+      props.setSubregion(props.data);
+      props.links.push([props.data.description, () => {}]);
+      props.setLinks(props.links);
+  }
     return (
-      <WRow className="table-entry">
+      <WRow className={tableStyle}>
         <WCol size="2">
           <div className="button-group">
             <WButton

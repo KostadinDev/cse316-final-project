@@ -30,6 +30,9 @@ const MainContents = (props) => {
                 handleVerify = {props.handleVerify}
                 links = {props.links}
                 setLinks = {props.setLinks}
+                selected = {props.selected}
+                enter = {props.enter}
+                setEnter = {props.setEnter}
             />
         </div>
        

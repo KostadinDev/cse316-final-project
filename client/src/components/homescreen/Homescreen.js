@@ -43,6 +43,21 @@ const Homescreen = (props) => {
 				tpsRedo();
 			}
 		}
+		else if (e.keyCode === 40) { 
+			setSelected(selected+1);
+		}
+		else if (e.keyCode === 38) { 
+
+			if (selected >= 0){
+				setSelected(selected-1);
+			}
+		}
+		else if (e.keyCode === 13) { 
+			console.log("mff");
+			setEnter(true);
+			
+		}
+		
 	}
 	document.onkeydown = keyCombination;
 
@@ -66,6 +81,9 @@ const Homescreen = (props) => {
 
 	const [showEditMap, toggleShowEditMap] = useState(false);
 	const [editMapId, setEditMapId] = useState("");
+
+	const [selected, setSelected] = useState(-1);
+	const [enter, setEnter] = useState(false);
 
 
 	const [images, setImages] = useState([])
@@ -172,17 +190,19 @@ const Homescreen = (props) => {
 		const items = list.items;
 		const newItem = {
 			_id: '',
-			description: 'No Name',
-			due_date: 'No Capital',
-			assigned_to: 'default',
-			completed: false
+			description: 'No Description',
+			due_date: 'No Date',
+			assigned_to: 'No One',
+			completed: 'false'
 		};
 		let opcode = 1;
 		let itemID = newItem._id;
 		let listID = activeList._id;
+		console.log("DOES IT GET HERE???")
 		let transaction = new UpdateListItems_Transaction(listID, itemID, newItem, opcode, AddTodoItem, DeleteTodoItem);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
+		console.log("DOES IT GET HERE???")
 	};
 
 	const deleteItem = async (item, index) => {
@@ -466,6 +486,9 @@ const Homescreen = (props) => {
                       handleVerify={handleVerify}
                       links={links}
                       setLinks={setLinks}
+					  selected = {selected}
+					  enter = {enter}
+					  setEnter = {setEnter}
                     />
                   ) : (
                     <SubregionContents
